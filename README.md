@@ -1,9 +1,11 @@
-### WELCOME TO MY PAGE 👋👋👋
+### HI THERE 👋👋👋
+![PhuocSang's github views](https://komarev.com/ghpvc/?username=PhuocSang07)
 
+<!--
 <div id="header" align="center">
   <img src="https://media.giphy.com/media/M9gbBd9nbDrOTu1Mqx/giphy.gif" width="100"/>
 </div>
-
+-->
 # Information
 - 🌱 I’m currently learning Computer Science in Ton Duc Thang University
 <!-- - 👯 I’m looking to collaborate on ... -->
