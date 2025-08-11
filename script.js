@@ -378,13 +378,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         typewriter
-            .typeString('TRAN PHUOC SANG')
+            .typeString('AI R&D')
             .pauseFor(2500)
             .deleteAll()
-            .typeString('AI DEVELOPER')
+            .typeString('AI ENGINEER')
             .pauseFor(2500)
             .deleteAll()
-            .typeString('ML RESEARCHER')
+            .typeString('AI ASSISTANT RESEARCH')
             .pauseFor(2500)
             .start();
     }

@@ -27,17 +27,17 @@
 
 :root {
     /* Color Variables - Cyberpunk Theme */
-    --primary-color: #00ffcc;
+    --primary-color: #00f7ff;
     --primary-hover: #00e6b8;
-    --secondary-color: #ff00ff;
-    --accent-color: #00f2ff;
-    --text-primary: #e6e6e6;
-    --text-secondary: #a8a8a8;
+    --secondary-color: #f700ff;
+    --accent-color: #ffcc00;
+    --text-primary: #e0e0e0;
+    --text-secondary: #a0a0a0;
     --bg-primary: #0a0a0a;
     --bg-secondary: #121212;
     --bg-tertiary: #1a1a1a;
-    --border-color: rgba(0, 255, 204, 0.2);
-    --shadow-color: rgba(0, 255, 204, 0.5);
+    --border-color: rgba(255, 255, 255, 0.1);
+    --shadow-color: rgba(0, 247, 255, 0.1);
 
     /* Typography */
     --font-family-body: 'Poppins', sans-serif;
@@ -47,6 +47,12 @@
     /* Transitions */
     --transition-fast: 0.2s ease-in-out;
     --transition-normal: 0.4s ease-in-out;
+    --border-radius: 6px;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 15px; /* Scale down the base font size */
 }
 
 /* Dark Theme (Default) */
@@ -339,10 +345,29 @@ body {
     font-size: clamp(2rem, 5vw, 4rem);
     font-weight: 700;
     line-height: 1.1;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
     color: var(--text-primary);
-    text-transform: uppercase; /* Ensure text matches data-text */
+    text-transform: uppercase;
 }
+
+.hero-subtitle-wrapper {
+    display: flex;
+    align-items: center;
+    font-family: var(--font-family-code);
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    min-height: 40px; /* Prevent layout shift */
+    color: var(--text-secondary);
+}
+
+.hero-subtitle-wrapper .terminal-prompt {
+    color: var(--primary-color);
+    margin-right: 0.5rem;
+}
+
+.hero-subtitle-wrapper .typewriter {
+    color: var(--text-primary);
+}
+
 .terminal-prompt {
     color: var(--primary-color);
 }
@@ -506,17 +531,17 @@ body {
     height: 100%;
     background: var(--bg-primary);
     overflow: hidden;
-    opacity: 0.8;
+    opacity: 0.6;
 }
 .glitch::before {
     left: 2px;
     text-shadow: -1px 0 var(--secondary-color);
-    animation: glitch-anim-1 2.5s infinite linear alternate-reverse;
+    animation: glitch-anim-1 5s infinite linear alternate-reverse;
 }
 .glitch::after {
     left: -2px;
     text-shadow: -1px 0 var(--accent-color);
-    animation: glitch-anim-2 3s infinite linear alternate-reverse;
+    animation: glitch-anim-2 5.5s infinite linear alternate-reverse;
 }
 
 @keyframes glitch-anim-1 {
@@ -542,15 +567,33 @@ section {
     padding: 6rem 0;
     border-bottom: 1px solid var(--border-color);
 }
+/* Section Titles */
 .section-title {
+    position: relative;
     text-align: center;
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 4rem;
-    color: var(--primary-color);
+    margin-bottom: 3rem;
+    font-size: clamp(1.6rem, 5vw, 2.2rem); /* Scaled down */
     font-family: var(--font-family-heading);
-    text-shadow: 0 0 10px var(--shadow-color);
-    letter-spacing: 2px;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem; /* Scaled down */
+}
+
+/* Removed icon-specific styles from here */
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 2px;
+    background: var(--primary-color);
+    border-radius: 1px;
 }
 
 /* About Section */
@@ -650,50 +693,102 @@ section {
 
 /* Experience Section */
 .experience {
-    background-color: var(--bg-primary);
+    background: var(--bg-primary);
 }
-.experience-content {
-    max-width: 900px;
-    margin: 0 auto;
-}
+
 .experience-card {
-    background: var(--bg-tertiary);
-    padding: 2rem;
-    border-radius: 8px;
-    border-left: 4px solid var(--primary-color);
-    border-image: linear-gradient(to bottom, var(--primary-color), var(--secondary-color)) 1;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    padding: 2rem; /* Scaled down */
     margin-bottom: 2rem;
+    border-radius: var(--border-radius);
+    transition: all var(--transition-normal);
+    display: grid;
+    grid-template-columns: 1.5fr 3fr;
+    gap: 2rem; /* Scaled down */
 }
-.experience-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+
+.experience-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px var(--shadow-color);
+}
+
+.experience-left .experience-job-title {
+    font-size: 1.4rem; /* Scaled down */
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+.experience-left .experience-company {
+    font-size: 1rem; /* Scaled down */
+    font-weight: 500;
     margin-bottom: 1rem;
-    flex-wrap: wrap;
 }
-.experience-company h3 {
-    font-size: 1.25rem;
-    color: var(--primary-color);
-}
-.experience-position {
-    color: var(--text-secondary);
-    font-style: italic;
-}
-.experience-duration {
-    color: var(--text-secondary);
+
+.experience-left .experience-location,
+.experience-left .experience-duration {
     font-family: var(--font-family-code);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0.25rem 0;
 }
-.experience-details ul {
+
+.experience-skills {
+    margin-top: 1.5rem;
+}
+
+.experience-skills h4 {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+}
+
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.skills-list span {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--border-radius);
+    font-family: var(--font-family-code);
+    font-size: 0.85rem;
+}
+
+.experience-right h4 {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+.experience-right ul {
     list-style: none;
     padding-left: 0;
+    margin: 0;
 }
-.experience-details li {
-    color: var(--text-secondary);
-    position: relative;
+
+.experience-right ul li {
+    margin-bottom: 0.75rem;
     padding-left: 1.5rem;
-    margin-bottom: 0.5rem;
+    position: relative;
+    color: var(--text-secondary);
+    line-height: 1.6;
 }
-.experience-details li::before {
+
+.experience-right ul li::before {
     content: '>';
     position: absolute;
     left: 0;
@@ -702,7 +797,9 @@ section {
 }
 
 /* Publications Section */
-.publications { background-color: var(--bg-secondary); }
+.publications {
+    background-color: var(--bg-secondary);
+}
 .publications-content {
     max-width: 800px;
     margin: 0 auto;
@@ -782,21 +879,54 @@ section {
 /* Contact Section */
 .contact { background-color: var(--bg-secondary); }
 .contact-content {
-    display: grid;
-    grid-template-columns: 1fr 1.5fr;
-    gap: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     max-width: 1000px;
     margin: 0 auto;
+}
+.contact-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    width: 100%;
+    max-width: 650px;
 }
 .contact-item {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
+    gap: 0.75rem;
+    padding: 0.5rem;
+    background: var(--bg-tertiary);
+    border-radius: 4px;
+    transition: all var(--transition-fast);
 }
+
+.contact-item:hover {
+    background-color: var(--primary-color);
+    color: var(--bg-primary);
+}
+
+.contact-item:hover a, .contact-item:hover h4, .contact-item:hover p, .contact-item:hover i {
+    color: var(--bg-primary);
+}
+
 .contact-item i {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     color: var(--primary-color);
+    width: 25px;
+    text-align: center;
+    transition: all var(--transition-fast);
+}
+.contact-item h4 {
+    font-size: 0.9rem;
+    margin-bottom: 0;
+    transition: all var(--transition-fast);
+}
+.contact-item p {
+    font-size: 0.9rem;
+    margin: 0;
+    transition: all var(--transition-fast);
 }
 .contact-item a {
     color: var(--primary-color);
@@ -804,7 +934,7 @@ section {
     transition: all var(--transition-fast);
 }
 .contact-item a:hover {
-    text-shadow: 0 0 5px var(--shadow-color);
+    text-decoration: none;
 }
 .contact-form {
     background: var(--bg-tertiary);
