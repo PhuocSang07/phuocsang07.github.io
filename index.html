@@ -38,14 +38,14 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <h2>Tran Phuoc Sang</h2>
+                <h2 style="user-select: none;">Tran Phuoc Sang</h2>
             </div>
             <ul class="nav-menu">
                 <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
                 <li><a href="#experience">Experience</a></li>
-                <li><a href="#publications">Publications</a></li>
                 <li><a href="#projects">Projects</a></li>
-                <li><a href="#achievements">Achievements</a></li>
+                <li><a href="#publications">Publications & Achievements</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <div class="hamburger">
@@ -163,7 +163,49 @@
                             <strong>Phone:</strong>
                             <span>0347763291</span>
                         </div>
+                        <div class="info-item">
+                            <i class="fas fa-language"></i>
+                            <strong>Languages:</strong>
+                            <span>Aptis Level B2 (L: C1, S: B1, R: B2, W: B2)</span>
+                        </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title">🛠️ TOP SKILLS 🛠️</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>AI & Machine Learning</h3>
+                    <ul>
+                        <li><i class="fas fa-brain"></i> Large Language Models (LLM)</li>
+                        <li><i class="fas fa-cogs"></i> Retrieval-Augmented Generation (RAG)</li>
+                        <li><i class="fas fa-lightbulb"></i> Fine-tuning (LoRA, Peft)</li>
+                        <li><i class="fab fa-python"></i> PyTorch</li>
+                        <li><i class="fas fa-link"></i> LangChain</li>
+                        <li>🤗 Hugging Face</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Programming & Databases</h3>
+                    <ul>
+                        <li><i class="fab fa-python"></i> Python</li>
+                        <li><i class="fas fa-database"></i> PostgreSQL</li>
+                        <li><i class="fas fa-search-plus"></i> Qdrant</li>
+                        <li><i class="fab fa-git-alt"></i> Git & GitHub</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Web & Deployment</h3>
+                    <ul>
+                        <li><i class="fas fa-desktop"></i> Streamlit</li>
+                        <li><i class="fab fa-docker"></i> Docker</li>
+                        <li><i class="fas fa-server"></i> REST APIs</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -238,26 +280,6 @@
                             <li>Fine-tuning large language models for domain-specific question answering.</li>
                             <li>Developing and maintaining data processing pipelines for NLP tasks.</li>
                         </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Publications Section -->
-    <section id="publications" class="publications">
-        <div class="container">
-                                    <h2 class="section-title">📄 PUBLICATIONS 📄</h2>
-            <div class="publications-content">
-                <div class="publication-card">
-                    <div class="publication-icon">
-                        <i class="fas fa-file-alt"></i>
-                    </div>
-                    <div class="publication-info">
-                        <h3>Coming Soon...</h3>
-                        <p>
-                            Scientific publications will be updated soon.
-                        </p>
                     </div>
                 </div>
             </div>
@@ -346,22 +368,34 @@
         </div>
     </section>
 
-    <!-- Achievements Section -->
-    <section id="achievements" class="achievements">
+    <!-- Publications & Achievements Section -->
+    <section id="publications" class="publications">
         <div class="container">
-                                    <h2 class="section-title">🎯 ACHIEVEMENTS 🎯</h2>
-            <div class="achievements-content">
-                <div class="achievement-card">
-                    <div class="achievement-icon">
-                        🥈
+            <h2 class="section-title">📄 PUBLICATIONS & ACHIEVEMENTS 🏆</h2>
+            <div class="publications-content">
+                <div class="publication-card">
+                    <div class="publication-icon">
+                        <i class="fas fa-file-alt"></i>
                     </div>
-                    <div class="achievement-info">
-                        <h3>Top 2 - OAI HCMC 2025</h3>
+                    <div class="publication-info">
+                        <h3>Coming Soon...</h3>
                         <p>
-                            Olympic AI Ho Chi Minh City 2025 at Hutech University (25/4/2025).
+                            Scientific publications will be updated soon.
                         </p>
                     </div>
                 </div>
+            </div>
+            <div class="achievements-content" style="margin-top: 2rem;">
+                <ul class="achievements-list">
+                    <li>
+                        <span class="achievement-icon">🥈</span>
+                        <div class="achievement-info">
+                            <h3>Top 2 - OAI HCMC 2025</h3>
+                            <p>Olympic AI Ho Chi Minh City 2025 at Hutech University.</p>
+                        </div>
+                    </li>
+                    <!-- Add more achievements as list items -->
+                </ul>
             </div>
         </div>
     </section>

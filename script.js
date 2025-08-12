@@ -444,7 +444,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('section, .info-card, .project-card, .achievement-card, .experience-card').forEach(el => {
+    document.querySelectorAll('section[id], .skill-category, .project-card, .achievement-card, .experience-card, .publication-card').forEach(el => {
         observer.observe(el);
     });
     
