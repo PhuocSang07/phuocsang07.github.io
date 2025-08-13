@@ -386,6 +386,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .deleteAll()
             .typeString('AI ASSISTANT RESEARCH')
             .pauseFor(2500)
+            .deleteAll()
             .start();
     }
     
