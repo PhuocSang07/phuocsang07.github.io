@@ -1,0 +1,29 @@
+# Node
+node_modules/
+npm-debug.log
+.obsidian/
+docs/
+dailynote/
+study/
+template/
+package.json
+package-lock.json
+yarn-error.log
+
+# Obsidian
+.obsidian/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary
+*.tmp
+*.bak

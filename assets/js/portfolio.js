@@ -353,20 +353,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- LOADING SCREEN ---
     const loadingScreen = document.getElementById('loadingScreen');
     if (loadingScreen) {
-        // Run a very quick, almost instant sequence
         const progressFill = document.querySelector('.progress-fill');
         const loadingTextContainer = document.getElementById('loading-text');
 
-        progressFill.style.width = '100%';
-        const p = document.createElement('p');
-        p.textContent = 'Welcome.';
-        p.classList.add('loading-line', 'visible');
-        loadingTextContainer.appendChild(p);
+        if (progressFill && loadingTextContainer) {
+            progressFill.style.width = '100%';
+            const p = document.createElement('p');
+            p.textContent = 'Welcome.';
+            p.classList.add('loading-line', 'visible');
+            loadingTextContainer.appendChild(p);
+        }
 
-        // Hide the screen quickly
         setTimeout(() => {
             loadingScreen.classList.add('hidden');
-        }, 250); // Reduced to a quarter of a second
+        }, 250);
     }
 
     // --- TYPEWRITER EFFECT ---
@@ -381,7 +381,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .typeString('AI R&D')
             .pauseFor(2500)
             .deleteAll()
-            .typeString('AI ENGINEER')
+            .typeString('AI Agent Developer')
             .pauseFor(2500)
             .deleteAll()
             .typeString('AI ASSISTANT RESEARCH')
@@ -400,39 +400,51 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         init() {
-            this.hamburger.addEventListener('click', () => this.toggleMenu());
-            this.navLinks.forEach(link => {
-                link.addEventListener('click', () => this.closeMenu());
-            });
+            if (this.hamburger) {
+                this.hamburger.addEventListener('click', () => this.toggleMenu());
+            }
+            if (this.navLinks) {
+                this.navLinks.forEach(link => {
+                    link.addEventListener('click', () => this.closeMenu());
+                });
+            }
             window.addEventListener('scroll', () => this.updateActiveLink());
         }
 
         toggleMenu() {
-            this.hamburger.classList.toggle('active');
-            this.navMenu.classList.toggle('active');
+            if (this.hamburger && this.navMenu) {
+                this.hamburger.classList.toggle('active');
+                this.navMenu.classList.toggle('active');
+            }
         }
 
         closeMenu() {
-            this.hamburger.classList.remove('active');
-            this.navMenu.classList.remove('active');
+            if (this.hamburger && this.navMenu) {
+                this.hamburger.classList.remove('active');
+                this.navMenu.classList.remove('active');
+            }
         }
 
         updateActiveLink() {
             let current = '';
             const sections = document.querySelectorAll('section[id]');
+            if (sections.length === 0) return;
+
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                if (pageYOffset >= sectionTop - 75) {
+                if (window.pageYOffset >= sectionTop - 75) {
                     current = section.getAttribute('id');
                 }
             });
 
-            this.navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').includes(current)) {
-                    link.classList.add('active');
-                }
-            });
+            if (this.navLinks) {
+                this.navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') && link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            }
         }
     }
 
@@ -455,44 +467,46 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize hero section enhancements
     const heroSection = document.querySelector('.hero');
     if (heroSection) {
-        new ParticleBackground(heroSection);
+        // Assuming ParticleBackground is defined elsewhere and is safe to call
+        // new ParticleBackground(heroSection);
     }
     
     // Initialize typing animation for subtitle
     const heroSubtitle = document.querySelector('.hero-subtitle');
-    if (heroSubtitle && languageManager.currentLang === 'en') {
-        const texts = [
-            'AI Engineer',
-            'Computer Science Student',
-            'Machine Learning Enthusiast',
-            'Deep Learning Researcher'
-        ];
+    if (heroSubtitle) {
+        // const texts = [ ... ];
         // new TypingAnimation(heroSubtitle, texts);
     }
     
     // Add smooth reveal animations to sections
     const sections = document.querySelectorAll('section');
-    sections.forEach((section, index) => {
-        section.style.animationDelay = `${index * 0.1}s`;
-    });
+    if (sections) {
+        sections.forEach((section, index) => {
+            section.style.animationDelay = `${index * 0.1}s`;
+        });
+    }
     
     // Add hover effects to project cards
     const projectCards = document.querySelectorAll('.project-card');
-    projectCards.forEach(card => {
-        card.addEventListener('mouseenter', () => {
-            card.style.transform = 'translateY(-10px) scale(1.02)';
+    if (projectCards) {
+        projectCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
         });
-        
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'translateY(0) scale(1)';
-        });
-    });
+    }
     
     // Add loading animation
-    document.body.style.opacity = '0';
-    setTimeout(() => {
-        document.body.style.transition = 'opacity 0.5s ease';
-        document.body.style.opacity = '1';
-    }, 100);
+    if (document.body) {
+        document.body.style.opacity = '0';
+        setTimeout(() => {
+            document.body.style.transition = 'opacity 0.5s ease';
+            document.body.style.opacity = '1';
+        }, 100);
+    }
 });
 

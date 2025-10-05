@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI Research & Experiments Blog by Tran Phuoc Sang">
+    <title>Blog - Tran Phuoc Sang</title>
+    <link rel="stylesheet" href="../assets/css/blog.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Marked.js for Markdown parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Highlight.js for code syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css" id="highlight-theme-light">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" id="highlight-theme-dark" disabled>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <!-- Posts index -->
+    <script src="../posts-index.js"></script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-content">
+            <!-- Profile Section -->
+            <div class="profile-section">
+                <a href="../index.html" class="avatar-link">
+                    <div class="avatar">
+                        <i class="fas fa-user-astronaut"></i>
+                    </div>
+                </a>
+                <h2 class="site-title">Tran Phuoc Sang</h2>
+                <p class="site-subtitle">AI Engineer | Research Assistant</p>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="../index.html"><i class="fas fa-home"></i> <span>Home</span></a></li>
+                    <li><a href="#" class="active" onclick="event.preventDefault(); showBlogList();"><i class="fas fa-blog"></i> <span>Posts</span></a></li>
+                    <li><a href="#" onclick="event.preventDefault(); showArchive();"><i class="fas fa-archive"></i> <span>Archive</span></a></li>
+                    <li><a href="#" onclick="event.preventDefault(); scrollToSection('categories');"><i class="fas fa-folder"></i> <span>Categories</span></a></li>
+                    <li><a href="#" onclick="event.preventDefault(); scrollToSection('tags');"><i class="fas fa-tags"></i> <span>Tags</span></a></li>
+                </ul>
+            </nav>
+
+            <!-- Social Links -->
+            <div class="social-links">
+                <a href="https://github.com/PhuocSang07" target="_blank" title="GitHub" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/phuocsang2412/" target="_blank" title="LinkedIn" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://huggingface.co/phuocsang" target="_blank" title="Hugging Face" aria-label="Hugging Face">
+                    <span style="font-size: 1.2rem;">🤗</span>
+                </a>
+                <a href="mailto:transhack09@gmail.com" title="Email" aria-label="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+
+            <!-- Theme Toggle -->
+            <div class="theme-toggle-wrapper">
+                <button class="theme-toggle" id="theme-toggle" title="Toggle theme" aria-label="Toggle theme">
+                    <i class="fas fa-sun"></i>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar">
+            <i class="fas fa-bars"></i>
+        </button>
+        <h1 class="mobile-title">Sang's Blog</h1>
+        <button class="theme-toggle-mobile" id="theme-toggle-mobile" aria-label="Toggle theme">
+            <i class="fas fa-sun"></i>
+        </button>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Blog List View -->
+        <div id="blog-list-view" class="blog-list-view">
+            <!-- Modern Page Header -->
+            <div class="page-header-modern">
+                <div class="header-content">
+                    <div class="header-badge">
+                        <i class="fas fa-blog"></i>
+                        <span>Blog</span>
+                    </div>
+                    <h1 class="page-title-modern">AI Research & Experiments</h1>
+                    <p class="page-description-modern">Exploring the frontiers of Artificial Intelligence, Machine Learning, and Deep Learning. Sharing insights, experiments, and discoveries.</p>
+                    
+                    <!-- Search Bar -->
+                    <div class="search-container-modern">
+                        <div class="search-wrapper">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" id="search-input" class="search-input-modern" placeholder="Search posts by title, tags, or keywords..." aria-label="Search posts">
+                            <button class="search-btn-modern" id="search-btn" aria-label="Search">
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="filter-section">
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-filter="all" data-type="category">
+                        <i class="fas fa-list"></i> All Posts
+                    </button>
+                    <button class="filter-tab" data-filter="experiment" data-type="category">
+                        <i class="fas fa-flask"></i> Experiments
+                    </button>
+                    <button class="filter-tab" data-filter="tutorial" data-type="category">
+                        <i class="fas fa-book"></i> Tutorials
+                    </button>
+                    <button class="filter-tab" data-filter="research" data-type="category">
+                        <i class="fas fa-microscope"></i> Research
+                    </button>
+                </div>
+            </div>
+
+            <!-- Active Filters Display -->
+            <div id="active-filters" class="active-filters" style="display: none;">
+                <div class="filter-container">
+                    <span class="filter-label"><i class="fas fa-filter"></i> Active filters:</span>
+                    <div id="active-filters-list" class="active-filters-list"></div>
+                    <button class="clear-filters-btn" id="clear-filters-btn">
+                        <i class="fas fa-times-circle"></i> Clear All
+                    </button>
+                </div>
+            </div>
+
+            <div class="content-wrapper">
+                <!-- Posts List -->
+                <div id="posts-list" class="posts-list">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <p>Loading posts...</p>
+                    </div>
+                </div>
+
+                <!-- Trending Sidebar -->
+                <aside class="trending-sidebar">
+                    <!-- Trending Tags -->
+                    <div class="trending-card" id="tags">
+                        <h3><i class="fas fa-fire"></i> Trending Tags</h3>
+                        <div id="trending-tags" class="tag-cloud">
+                            <!-- Tags will be loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- Categories -->
+                    <div class="trending-card" id="categories">
+                        <h3><i class="fas fa-folder-open"></i> Categories</h3>
+                        <div id="categories-list" class="categories-list">
+                            <!-- Categories will be loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- Recent Posts -->
+                    <div class="trending-card">
+                        <h3><i class="fas fa-clock"></i> Recent Posts</h3>
+                        <div id="recent-posts" class="recent-posts-list">
+                            <!-- Recent posts will be loaded here -->
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+
+        <!-- Archive View -->
+        <div id="archive-view" class="archive-view" style="display: none;">
+            <div class="page-header-modern">
+                <div class="header-content">
+                    <div class="header-badge">
+                        <i class="fas fa-archive"></i>
+                        <span>Archive</span>
+                    </div>
+                    <h1 class="page-title-modern">Post Archive</h1>
+                    <p class="page-description-modern">Browse all posts organized by time</p>
+                </div>
+            </div>
+
+            <div class="archive-container">
+                <div id="archive-timeline" class="archive-timeline">
+                    <!-- Timeline will be generated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Single Post View -->
+        <div id="blog-post-view" class="blog-post-view" style="display: none;">
+            <div class="post-wrapper">
+                <!-- Post Content -->
+                <article class="post-content">
+                    <header class="post-header">
+                        <button class="back-to-list-btn" onclick="showBlogList()">
+                            <i class="fas fa-arrow-left"></i> Back to Posts
+                        </button>
+                        <h1 id="post-title" class="post-title"></h1>
+                        
+                        <!-- Enhanced Metadata Display -->
+                        <div class="post-meta-enhanced">
+                            <div class="meta-group">
+                                <div class="meta-item">
+                                    <i class="far fa-calendar-alt"></i>
+                                    <time id="post-date"><span></span></time>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="far fa-clock"></i>
+                                    <span id="post-reading-time"><span>5 min read</span></span>
+                                </div>
+                                <div class="meta-item" id="post-category-wrapper" style="display: none;">
+                                    <i class="fas fa-folder"></i>
+                                    <span class="post-category-badge" id="post-category"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tags Display -->
+                        <div id="post-tags-wrapper" class="post-tags-wrapper" style="display: none;">
+                            <div class="tags-label">
+                                <i class="fas fa-tags"></i>
+                                <span>Tags:</span>
+                            </div>
+                            <div id="post-tags" class="post-tags-enhanced"></div>
+                        </div>
+                    </header>
+
+                    <div id="post-content" class="markdown-content">
+                        <!-- Post content will be loaded here -->
+                    </div>
+
+                    <footer class="post-footer">
+                        <!-- Keywords Display -->
+                        <div id="post-keywords-section" class="post-keywords-section" style="display: none;">
+                            <div class="keywords-header">
+                                <i class="fas fa-key"></i>
+                                <span>Keywords:</span>
+                            </div>
+                            <div id="post-keywords" class="keywords-list-enhanced"></div>
+                        </div>
+                    </footer>
+                </article>
+
+                <!-- Table of Contents Panel -->
+                <aside class="toc-panel" id="toc-panel">
+                    <div class="toc-wrapper">
+                        <h3 class="toc-title">
+                            <i class="fas fa-list"></i>
+                            Contents
+                        </h3>
+                        <nav id="table-of-contents" class="toc-nav">
+                            <!-- TOC will be generated here -->
+                        </nav>
+                    </div>
+                </aside>
+            </div>
+
+            <!-- Post Navigation -->
+            <nav class="post-navigation">
+                <button id="prev-post" class="nav-post-btn" style="display: none;">
+                    <i class="fas fa-chevron-left"></i>
+                    <div class="nav-post-content">
+                        <span class="nav-post-label">Previous</span>
+                        <span class="nav-post-title"></span>
+                    </div>
+                </button>
+                <button id="next-post" class="nav-post-btn" style="display: none;">
+                    <div class="nav-post-content">
+                        <span class="nav-post-label">Next</span>
+                        <span class="nav-post-title"></span>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </nav>
+
+            <!-- Back to Top Button -->
+            <button class="back-to-top" id="back-to-top" title="Back to top" aria-label="Back to top">
+                <i class="fas fa-arrow-up"></i>
+            </button>
+        </div>
+    </main>
+
+    <!-- Sidebar Overlay (Mobile) -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <script src="../assets/js/blog.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Auto-generate posts index before commit
+echo "🔄 Auto-generating posts index..."
+node generate-posts-index.js
+
+# Add the updated posts-index.js to staging
+git add posts-index.js
+
+echo "✅ Posts index updated!"
+
