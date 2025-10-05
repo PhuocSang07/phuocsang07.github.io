@@ -85,10 +85,16 @@ function initSidebar() {
 
 // === Utility Functions ===
 function scrollToSection(sectionId) {
-    const section = document.getElementById(sectionId);
-    if (section) {
-        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    // First, ensure we're in blog list view
+    showBlogList();
+    
+    // Wait a bit for the view to render, then scroll
+    setTimeout(() => {
+        const section = document.getElementById(sectionId);
+        if (section) {
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }, 100);
 }
 
 // === Markdown Parsing ===
@@ -108,12 +114,44 @@ function parseFrontmatter(content) {
         const colonIndex = line.indexOf(':');
         if (colonIndex > 0) {
             const key = line.substring(0, colonIndex).trim();
-            const value = line.substring(colonIndex + 1).trim();
-            metadata[key] = value;
+            let value = line.substring(colonIndex + 1).trim();
+            
+            // Parse different formats
+            if (value.startsWith('[') && value.endsWith(']')) {
+                // Array format: [item1, item2, item3]
+                const arrayContent = value.slice(1, -1);
+                metadata[key] = arrayContent.split(',').map(v => v.trim()).filter(v => v);
+            } else if (value === 'true' || value === 'false') {
+                // Boolean
+                metadata[key] = value === 'true';
+            } else if (value.includes(',') && !value.includes('[')) {
+                // Comma-separated string: item1, item2, item3
+                metadata[key] = value.split(',').map(v => v.trim()).filter(v => v);
+            } else {
+                // Regular string
+                metadata[key] = value;
+            }
         }
     });
     
     return { metadata, content: bodyContent };
+}
+
+// Remove first heading from content (since it's displayed in header)
+function removeFirstHeading(content) {
+    const lines = content.split('\n');
+    let foundHeading = false;
+    const result = [];
+    
+    for (let line of lines) {
+        if (!foundHeading && line.startsWith('# ')) {
+            foundHeading = true;
+            continue; // Skip the first heading
+        }
+        result.push(line);
+    }
+    
+    return result.join('\n');
 }
 
 function extractTitle(content) {
@@ -603,8 +641,11 @@ function showPost(index) {
     currentPostIndex = index;
     const post = allPosts[index];
     
-    // Hide list view, show post view
+    // Hide all views except post view
     document.getElementById('blog-list-view').style.display = 'none';
+    document.getElementById('archive-view').style.display = 'none';
+    document.getElementById('categories-view').style.display = 'none';
+    document.getElementById('tags-view').style.display = 'none';
     document.getElementById('blog-post-view').style.display = 'block';
     
     // Update post content
@@ -628,8 +669,29 @@ function showPost(index) {
     
     document.getElementById('post-title').textContent = post.title;
     
-    // Render markdown content
-    const contentHtml = marked.parse(post.fullContent || '');
+    // Display featured image if available
+    const featuredImageWrapper = document.getElementById('post-featured-image');
+    const featuredImage = document.getElementById('post-image');
+    const imageCaption = document.getElementById('post-image-caption');
+    
+    if (post.image && typeof post.image === 'object' && post.image.path) {
+        featuredImageWrapper.style.display = 'block';
+        featuredImage.src = post.image.path;
+        featuredImage.alt = post.image.alt || post.title;
+        
+        if (post.image.alt) {
+            imageCaption.textContent = post.image.alt;
+            imageCaption.style.display = 'block';
+        } else {
+            imageCaption.style.display = 'none';
+        }
+    } else {
+        featuredImageWrapper.style.display = 'none';
+    }
+    
+    // Render markdown content (remove first heading since it's in header)
+    const contentWithoutHeading = removeFirstHeading(post.fullContent || '');
+    const contentHtml = marked.parse(contentWithoutHeading);
     const contentContainer = document.getElementById('post-content');
     contentContainer.innerHTML = contentHtml;
     
@@ -653,16 +715,55 @@ function showPost(index) {
         tagsWrapper.style.display = 'none';
     }
     
-    // Display keywords with enhanced styling
-    const keywordsSection = document.getElementById('post-keywords-section');
-    const keywordsContainer = document.getElementById('post-keywords');
-    if (post.keywords && post.keywords.length > 0) {
-        keywordsSection.style.display = 'block';
-        keywordsContainer.innerHTML = post.keywords.map(keyword => 
-            `<span class="keyword-tag" onclick="filterByKeyword('${keyword}'); showBlogList();" title="Click to filter by this keyword">${keyword}</span>`
-        ).join('');
+    // Display metadata from frontmatter
+    const metadataSection = document.getElementById('post-metadata-section');
+    const metadataContainer = document.getElementById('post-metadata');
+    
+    // Collect metadata to display (exclude already displayed fields)
+    const excludeFields = ['title', 'date', 'Date', 'description', 'excerpt', 'pin', 'math', 'mermaid', 'image', 'categories', 'category'];
+    const metadataToDisplay = {};
+    
+    Object.entries(post.metadata || {}).forEach(([key, value]) => {
+        if (!excludeFields.includes(key) && value) {
+            metadataToDisplay[key] = value;
+        }
+    });
+    
+    // Display metadata if available
+    if (Object.keys(metadataToDisplay).length > 0) {
+        metadataSection.style.display = 'block';
+        
+        const metadataHTML = Object.entries(metadataToDisplay).map(([key, value]) => {
+            const displayKey = key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+            
+            let displayValue;
+            if (Array.isArray(value)) {
+                // Display as tags
+                displayValue = value.map(item => 
+                    `<span class="metadata-tag">${item}</span>`
+                ).join('');
+            } else if (typeof value === 'boolean') {
+                displayValue = value ? '✓ Yes' : '✗ No';
+            } else {
+                displayValue = `<span class="metadata-value">${value}</span>`;
+            }
+            
+            return `
+                <div class="metadata-item">
+                    <div class="metadata-key">
+                        <i class="fas fa-tag"></i>
+                        ${displayKey}:
+                    </div>
+                    <div class="metadata-value-container">
+                        ${displayValue}
+                    </div>
+                </div>
+            `;
+        }).join('');
+        
+        metadataContainer.innerHTML = metadataHTML;
     } else {
-        keywordsSection.style.display = 'none';
+        metadataSection.style.display = 'none';
     }
     
     // Setup navigation buttons
@@ -713,6 +814,8 @@ function showBlogList() {
     document.getElementById('blog-list-view').style.display = 'block';
     document.getElementById('blog-post-view').style.display = 'none';
     document.getElementById('archive-view').style.display = 'none';
+    document.getElementById('categories-view').style.display = 'none';
+    document.getElementById('tags-view').style.display = 'none';
     
     const newUrl = window.location.pathname;
     window.history.pushState({}, '', newUrl);
@@ -728,9 +831,45 @@ function showArchive() {
     document.getElementById('blog-list-view').style.display = 'none';
     document.getElementById('blog-post-view').style.display = 'none';
     document.getElementById('archive-view').style.display = 'block';
+    document.getElementById('categories-view').style.display = 'none';
+    document.getElementById('tags-view').style.display = 'none';
     
     // Generate archive timeline
     generateArchiveTimeline();
+    
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    // Close sidebar on mobile
+    closeSidebar();
+}
+
+// === Show Categories View ===
+function showCategories() {
+    document.getElementById('blog-list-view').style.display = 'none';
+    document.getElementById('blog-post-view').style.display = 'none';
+    document.getElementById('archive-view').style.display = 'none';
+    document.getElementById('categories-view').style.display = 'block';
+    document.getElementById('tags-view').style.display = 'none';
+    
+    // Generate categories grid
+    generateCategoriesPage();
+    
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    // Close sidebar on mobile
+    closeSidebar();
+}
+
+// === Show Tags View ===
+function showTags() {
+    document.getElementById('blog-list-view').style.display = 'none';
+    document.getElementById('blog-post-view').style.display = 'none';
+    document.getElementById('archive-view').style.display = 'none';
+    document.getElementById('categories-view').style.display = 'none';
+    document.getElementById('tags-view').style.display = 'block';
+    
+    // Generate tags cloud
+    generateTagsPage();
     
     window.scrollTo({ top: 0, behavior: 'smooth' });
     
@@ -807,6 +946,162 @@ function generateArchiveTimeline() {
                         </div>
                     `;
                 }).join('')}
+            </div>
+        `;
+    }).join('');
+    
+    container.innerHTML = html;
+}
+
+// === Generate Categories Page ===
+function generateCategoriesPage() {
+    const container = document.getElementById('categories-grid');
+    if (!container || allPosts.length === 0) return;
+    
+    // Count posts by category
+    const categoryData = {};
+    const categoryIcons = {
+        experiment: 'fa-flask',
+        study: 'fa-graduation-cap',
+        dailynote: 'fa-sticky-note',
+        tutorial: 'fa-book',
+        research: 'fa-microscope',
+        project: 'fa-code',
+        blog: 'fa-blog',
+        default: 'fa-folder'
+    };
+    
+    const categoryDescriptions = {
+        experiment: 'Experiments, prototypes, and hands-on projects',
+        study: 'Study notes, tutorials, and learning resources',
+        dailynote: 'Daily thoughts, observations, and quick notes',
+        tutorial: 'Step-by-step guides and how-tos',
+        research: 'Research papers and deep dives',
+        project: 'Project showcases and case studies',
+        blog: 'General blog posts and articles'
+    };
+    
+    const categoryColors = {
+        experiment: '#10b981',
+        study: '#3b82f6',
+        dailynote: '#f59e0b',
+        tutorial: '#8b5cf6',
+        research: '#ef4444',
+        project: '#06b6d4',
+        blog: '#6366f1'
+    };
+    
+    allPosts.forEach(post => {
+        const category = post.category || 'uncategorized';
+        if (!categoryData[category]) {
+            categoryData[category] = {
+                posts: [],
+                count: 0
+            };
+        }
+        categoryData[category].posts.push(post);
+        categoryData[category].count++;
+    });
+    
+    // Sort by count
+    const sortedCategories = Object.entries(categoryData).sort((a, b) => b[1].count - a[1].count);
+    
+    const html = sortedCategories.map(([category, data]) => {
+        const icon = categoryIcons[category] || categoryIcons.default;
+        const description = categoryDescriptions[category] || `Posts about ${category}`;
+        const color = categoryColors[category] || '#6b7280';
+        const recentPosts = data.posts.slice(0, 5);
+        
+        return `
+            <div class="category-card" data-category="${category}">
+                <div class="category-card-header" style="border-left: 4px solid ${color}">
+                    <div class="category-icon" style="background: ${color}15; color: ${color}">
+                        <i class="fas ${icon}"></i>
+                    </div>
+                    <div class="category-info">
+                        <h3 class="category-name">${category.charAt(0).toUpperCase() + category.slice(1)}</h3>
+                        <p class="category-description">${description}</p>
+                    </div>
+                    <div class="category-count" style="background: ${color}15; color: ${color}">
+                        ${data.count}
+                    </div>
+                </div>
+                <div class="category-card-body">
+                    <div class="category-recent-posts">
+                        <h4>Recent Posts:</h4>
+                        ${recentPosts.map((post, idx) => `
+                            <div class="recent-post-link" onclick="showPost(${allPosts.indexOf(post)})">
+                                <span class="post-number">${idx + 1}</span>
+                                <span class="post-title-mini">${post.title}</span>
+                                <span class="post-date-mini">${post.date?.split('T')[0] || post.date}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <button class="view-all-btn" onclick="filterByCategory('${category}'); showBlogList();" style="border-color: ${color}; color: ${color}">
+                        <span>View All Posts</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+    }).join('');
+    
+    container.innerHTML = html || '<p class="no-data">No categories found.</p>';
+}
+
+// === Generate Tags Page ===
+function generateTagsPage() {
+    const container = document.getElementById('tags-cloud');
+    if (!container || allPosts.length === 0) return;
+    
+    // Count posts by tag
+    const tagData = {};
+    
+    allPosts.forEach(post => {
+        if (post.tags && post.tags.length > 0) {
+            post.tags.forEach(tag => {
+                if (!tagData[tag]) {
+                    tagData[tag] = {
+                        posts: [],
+                        count: 0
+                    };
+                }
+                tagData[tag].posts.push(post);
+                tagData[tag].count++;
+            });
+        }
+    });
+    
+    // Sort by count (descending)
+    const sortedTags = Object.entries(tagData).sort((a, b) => b[1].count - a[1].count);
+    
+    if (sortedTags.length === 0) {
+        container.innerHTML = '<p class="no-data">No tags found.</p>';
+        return;
+    }
+    
+    // Calculate sizes for tag cloud (min 1rem, max 3rem)
+    const maxCount = Math.max(...sortedTags.map(([_, data]) => data.count));
+    const minCount = Math.min(...sortedTags.map(([_, data]) => data.count));
+    const sizeRange = maxCount - minCount;
+    
+    const html = sortedTags.map(([tag, data]) => {
+        // Calculate font size based on count
+        const normalizedSize = sizeRange > 0 ? (data.count - minCount) / sizeRange : 0.5;
+        const fontSize = 0.9 + (normalizedSize * 1.2); // 0.9rem to 2.1rem
+        const fontWeight = 400 + Math.round(normalizedSize * 300); // 400 to 700
+        
+        // Generate color based on tag name (consistent hashing)
+        const hue = (tag.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) * 137.508) % 360;
+        const color = `hsl(${hue}, 70%, 50%)`;
+        
+        return `
+            <div class="tag-cloud-item" 
+                 onclick="filterByTag('${tag}'); showBlogList();"
+                 style="font-size: ${fontSize}rem; font-weight: ${fontWeight}"
+                 title="${data.count} post${data.count > 1 ? 's' : ''}">
+                <span class="tag-text" style="color: ${color}">${tag}</span>
+                <span class="tag-count-badge">${data.count}</span>
             </div>
         `;
     }).join('');
