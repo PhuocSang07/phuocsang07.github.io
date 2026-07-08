@@ -1,512 +1,160 @@
-// Language data
-const translations = {
-    vi: {
-        // Navigation
-        "Trần Phước Sang": "Trần Phước Sang",
-        "Giới thiệu": "Giới thiệu",
-        "Công bố": "Công bố",
-        "Dự án": "Dự án",
-        "Thí nghiệm": "Thí nghiệm",
-        "Kiến trúc": "Kiến trúc",
-        "Liên hệ": "Liên hệ",
-        
-        // Hero Section
-        "Xin chào, tôi là": "Xin chào, tôi là",
-        "AI Engineer | Sinh viên Khoa học Máy tính": "AI Engineer | Sinh viên Khoa học Máy tính",
-        "Đam mê phát triển các giải pháp AI sáng tạo với chuyên môn về Machine Learning, Deep Learning và Natural Language Processing.": "Đam mê phát triển các giải pháp AI sáng tạo với chuyên môn về Machine Learning, Deep Learning và Natural Language Processing.",
-        "Liên hệ": "Liên hệ",
-        "Xem dự án": "Xem dự án",
-        
-        // About Section
-        "Giới thiệu": "Giới thiệu",
-        "Là sinh viên năm 4 chuyên ngành Khoa học Máy tính, tôi đang tìm kiếm cơ hội thực tập AI Engineer để áp dụng và mở rộng kiến thức về machine learning, deep learning. Mục tiêu của tôi là hợp tác với các chuyên gia, nâng cao kỹ năng kỹ thuật và đóng vai trò tích cực trong việc phát triển các giải pháp AI có tác động, góp phần vào sự phát triển và thành công của tổ chức.": "Là sinh viên năm 4 chuyên ngành Khoa học Máy tính, tôi đang tìm kiếm cơ hội thực tập AI Engineer để áp dụng và mở rộng kiến thức về machine learning, deep learning. Mục tiêu của tôi là hợp tác với các chuyên gia, nâng cao kỹ năng kỹ thuật và đóng vai trò tích cực trong việc phát triển các giải pháp AI có tác động, góp phần vào sự phát triển và thành công của tổ chức.",
-        "Học vấn": "Học vấn",
-        "Cử nhân Khoa học Máy tính<br>Đại học Tôn Đức Thắng<br>2021-2025 | GPA: 8.1": "Cử nhân Khoa học Máy tính<br>Đại học Tôn Đức Thắng<br>2021-2025 | GPA: 8.1",
-        "Kỹ năng lập trình": "Kỹ năng lập trình",
-        "Cơ sở dữ liệu": "Cơ sở dữ liệu",
-        "Chứng chỉ": "Chứng chỉ",
-        "Aptis B2, Agile & Scrum (2023), PyTorch-Image (2024)": "Aptis B2, Agile & Scrum (2023), PyTorch-Image (2024)",
-        
-        // Publications Section
-        "Công bố khoa học": "Công bố khoa học",
-        "Đang cập nhật...": "Đang cập nhật...",
-        "Các công bố khoa học sẽ được cập nhật trong thời gian tới.": "Các công bố khoa học sẽ được cập nhật trong thời gian tới.",
-        
-        // Projects Section
-        "Fine-tune Qwen2.5-3B cho Legal Chatbot": "Fine-tune Qwen2.5-3B cho Legal Chatbot",
-        "Tinh chỉnh mô hình Qwen2.5-3B trên tập dữ liệu văn bản pháp lý và tập QA để tạo chatbot tư vấn pháp lý. Sử dụng thư viện unsloth kết hợp với kỹ thuật LoRA.": "Tinh chỉnh mô hình Qwen2.5-3B trên tập dữ liệu văn bản pháp lý và tập QA để tạo chatbot tư vấn pháp lý. Sử dụng thư viện unsloth kết hợp với kỹ thuật LoRA.",
-        "Legal Chatbot với Advanced RAG": "Legal Chatbot với Advanced RAG",
-        "Phát triển hệ thống chatbot pháp lý nâng cao cho luật Việt Nam sử dụng kỹ thuật RAG. Triển khai cơ chế truy xuất tài liệu phân cấp với giao diện Streamlit thân thiện.": "Phát triển hệ thống chatbot pháp lý nâng cao cho luật Việt Nam sử dụng kỹ thuật RAG. Triển khai cơ chế truy xuất tài liệu phân cấp với giao diện Streamlit thân thiện.",
-        "Fine-tune Vistral-7B cho Travel Chatbot": "Fine-tune Vistral-7B cho Travel Chatbot",
-        "Tải mô hình Viet-Mistral-7B-Chat với độ chính xác 4-bit và áp dụng công nghệ LoRA để tinh chỉnh trên tập dữ liệu du lịch Việt Nam được tạo bởi Gemini-1.5-pro.": "Tải mô hình Viet-Mistral-7B-Chat với độ chính xác 4-bit và áp dụng công nghệ LoRA để tinh chỉnh trên tập dữ liệu du lịch Việt Nam được tạo bởi Gemini-1.5-pro.",
-        
-        // Experiments Section
-        "Model Fine-tuning Experiments": "Thí nghiệm Fine-tuning Mô hình",
-        "Thực nghiệm với các kỹ thuật fine-tuning khác nhau để tối ưu hóa hiệu suất mô hình AI cho các tác vụ cụ thể.": "Thực nghiệm với các kỹ thuật fine-tuning khác nhau để tối ưu hóa hiệu suất mô hình AI cho các tác vụ cụ thể.",
-        "RAG Architecture Testing": "Kiểm thử Kiến trúc RAG",
-        "Kiểm tra và so sánh các kiến trúc RAG khác nhau để cải thiện độ chính xác trong việc truy xuất và tạo sinh thông tin.": "Kiểm tra và so sánh các kiến trúc RAG khác nhau để cải thiện độ chính xác trong việc truy xuất và tạo sinh thông tin.",
-        
-        // Architecture Section
-        "Kiến trúc hệ thống": "Kiến trúc hệ thống",
-        "Người dùng": "Người dùng",
-        "Giao diện": "Giao diện",
-        "API Backend": "API Backend",
-        "AI Model": "Mô hình AI",
-        "Cơ sở dữ liệu": "Cơ sở dữ liệu",
-        "Kiến trúc hệ thống điển hình cho các ứng dụng AI, bao gồm giao diện người dùng, API backend, mô hình AI và cơ sở dữ liệu vector để lưu trữ và truy xuất thông tin hiệu quả.": "Kiến trúc hệ thống điển hình cho các ứng dụng AI, bao gồm giao diện người dùng, API backend, mô hình AI và cơ sở dữ liệu vector để lưu trữ và truy xuất thông tin hiệu quả.",
-        
-        // Contact Section
-        "Điện thoại": "Điện thoại",
-        "Gửi tin nhắn": "Gửi tin nhắn",
-        
-        // Footer
-        "© 2024 Trần Phước Sang. Tất cả quyền được bảo lưu.": "© 2024 Trần Phước Sang. Tất cả quyền được bảo lưu."
-    },
-    
-    en: {
-        // Navigation
-        "Trần Phước Sang": "Tran Phuoc Sang",
-        "Giới thiệu": "About",
-        "Công bố": "Publications",
-        "Dự án": "Projects",
-        "Thí nghiệm": "Experiments",
-        "Kiến trúc": "Architecture",
-        "Liên hệ": "Contact",
-        
-        // Hero Section
-        "Xin chào, tôi là": "Hello, I'm",
-        "AI Engineer | Sinh viên Khoa học Máy tính": "AI Engineer | Computer Science Student",
-        "Đam mê phát triển các giải pháp AI sáng tạo với chuyên môn về Machine Learning, Deep Learning và Natural Language Processing.": "Passionate about developing innovative AI solutions with expertise in Machine Learning, Deep Learning, and Natural Language Processing.",
-        "Liên hệ": "Contact Me",
-        "Xem dự án": "View Projects",
-        
-        // About Section
-        "Giới thiệu": "About Me",
-        "Là sinh viên năm 4 chuyên ngành Khoa học Máy tính, tôi đang tìm kiếm cơ hội thực tập AI Engineer để áp dụng và mở rộng kiến thức về machine learning, deep learning. Mục tiêu của tôi là hợp tác với các chuyên gia, nâng cao kỹ năng kỹ thuật và đóng vai trò tích cực trong việc phát triển các giải pháp AI có tác động, góp phần vào sự phát triển và thành công của tổ chức.": "As a fourth-year Computer Science student, I am seeking an AI Engineer internship to apply and expand my knowledge in machine learning and deep learning. My goal is to collaborate with experts, enhance my technical skills, and play an active role in developing impactful AI solutions that contribute to the growth and success of the organization.",
-        "Học vấn": "Education",
-        "Cử nhân Khoa học Máy tính<br>Đại học Tôn Đức Thắng<br>2021-2025 | GPA: 8.1": "Bachelor of Computer Science<br>Ton Duc Thang University<br>2021-2025 | GPA: 8.1",
-        "Kỹ năng lập trình": "Programming Skills",
-        "Cơ sở dữ liệu": "Databases",
-        "Chứng chỉ": "Certificates",
-        "Aptis B2, Agile & Scrum (2023), PyTorch-Image (2024)": "Aptis B2, Agile & Scrum (2023), PyTorch-Image (2024)",
-        
-        // Publications Section
-        "Công bố khoa học": "Publications",
-        "Đang cập nhật...": "Coming Soon...",
-        "Các công bố khoa học sẽ được cập nhật trong thời gian tới.": "Scientific publications will be updated soon.",
-        
-        // Projects Section
-        "Fine-tune Qwen2.5-3B cho Legal Chatbot": "Fine-tune Qwen2.5-3B for Legal Chatbot",
-        "Tinh chỉnh mô hình Qwen2.5-3B trên tập dữ liệu văn bản pháp lý và tập QA để tạo chatbot tư vấn pháp lý. Sử dụng thư viện unsloth kết hợp với kỹ thuật LoRA.": "Fine-tuned Qwen2.5-3B model on legal text corpus and QA dataset for legal chatbot. Used unsloth library combined with LoRA technique.",
-        "Legal Chatbot với Advanced RAG": "Legal Chatbot with Advanced RAG",
-        "Phát triển hệ thống chatbot pháp lý nâng cao cho luật Việt Nam sử dụng kỹ thuật RAG. Triển khai cơ chế truy xuất tài liệu phân cấp với giao diện Streamlit thân thiện.": "Developed advanced legal chatbot system for Vietnamese law using RAG techniques. Implemented hierarchical document retrieval with user-friendly Streamlit interface.",
-        "Fine-tune Vistral-7B cho Travel Chatbot": "Fine-tune Vistral-7B For Travel Chatbot",
-        "Tải mô hình Viet-Mistral-7B-Chat với độ chính xác 4-bit và áp dụng công nghệ LoRA để tinh chỉnh trên tập dữ liệu du lịch Việt Nam được tạo bởi Gemini-1.5-pro.": "Loaded Viet-Mistral-7B-Chat model in 4-bit precision and applied LoRA technology to fine-tune on Vietnamese travel QA dataset generated by Gemini-1.5-pro.",
-        
-        // Experiments Section
-        "Model Fine-tuning Experiments": "Model Fine-tuning Experiments",
-        "Thực nghiệm với các kỹ thuật fine-tuning khác nhau để tối ưu hóa hiệu suất mô hình AI cho các tác vụ cụ thể.": "Experimenting with different fine-tuning techniques to optimize AI model performance for specific tasks.",
-        "RAG Architecture Testing": "RAG Architecture Testing",
-        "Kiểm tra và so sánh các kiến trúc RAG khác nhau để cải thiện độ chính xác trong việc truy xuất và tạo sinh thông tin.": "Testing and comparing different RAG architectures to improve accuracy in information retrieval and generation.",
-        
-        // Architecture Section
-        "Kiến trúc hệ thống": "System Architecture",
-        "Người dùng": "User",
-        "Giao diện": "Frontend",
-        "API Backend": "API Backend",
-        "AI Model": "AI Model",
-        "Cơ sở dữ liệu": "Database",
-        "Kiến trúc hệ thống điển hình cho các ứng dụng AI, bao gồm giao diện người dùng, API backend, mô hình AI và cơ sở dữ liệu vector để lưu trữ và truy xuất thông tin hiệu quả.": "Typical system architecture for AI applications, including user interface, backend API, AI models, and vector database for efficient information storage and retrieval.",
-        
-        // Contact Section
-        "Điện thoại": "Phone",
-        "Gửi tin nhắn": "Send Message",
-        
-        // Footer
-        "© 2024 Trần Phước Sang. Tất cả quyền được bảo lưu.": "© 2024 Tran Phuoc Sang. All rights reserved."
-    }
-};
+// ============================================================================
+// Portfolio — interactions
+// Theme toggle (shared 'theme' key with the blog), mobile nav, typewriter,
+// scroll reveal, scroll-spy, back-to-top.
+// ============================================================================
 
-// Typewriter class (for hero section)
-class Typewriter {
-    constructor(element, options = {}) {
-        this.element = element;
-        this.options = {
-            loop: false,
-            delay: 75,
-            ...options,
-        };
-        this.queue = [];
-        this.isTyping = false;
-        this.isPaused = false;
+(function () {
+    'use strict';
+
+    // ------------------------------------------------------------------
+    // Theme
+    // ------------------------------------------------------------------
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = themeToggle.querySelector('i');
+
+    function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        themeIcon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
     }
 
-    typeString(string) {
-        this.addToQueue((resolve) => {
-            let i = 0;
-            const interval = setInterval(() => {
-                this.element.textContent += string[i];
-                i++;
-                if (i >= string.length) {
-                    clearInterval(interval);
-                    resolve();
-                }
-            }, this.options.delay);
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    applyTheme(savedTheme || (prefersDark ? 'dark' : 'light'));
+
+    themeToggle.addEventListener('click', () => {
+        const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        applyTheme(next);
+        localStorage.setItem('theme', next);
+    });
+
+    // ------------------------------------------------------------------
+    // Mobile navigation
+    // ------------------------------------------------------------------
+    const burger = document.getElementById('navBurger');
+    const navMenu = document.getElementById('navMenu');
+
+    burger.addEventListener('click', () => {
+        const open = navMenu.classList.toggle('open');
+        burger.classList.toggle('open', open);
+        burger.setAttribute('aria-expanded', String(open));
+    });
+
+    navMenu.querySelectorAll('.nav-link').forEach((link) => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('open');
+            burger.classList.remove('open');
+            burger.setAttribute('aria-expanded', 'false');
         });
-        return this;
+    });
+
+    // ------------------------------------------------------------------
+    // Navbar shadow + back-to-top visibility
+    // ------------------------------------------------------------------
+    const navbar = document.getElementById('navbar');
+    const backToTop = document.getElementById('backToTop');
+
+    function onScroll() {
+        navbar.classList.toggle('scrolled', window.scrollY > 10);
+        backToTop.classList.toggle('visible', window.scrollY > 600);
     }
 
-    deleteChars(count) {
-        this.addToQueue((resolve) => {
-            let i = 0;
-            const interval = setInterval(() => {
-                this.element.textContent = this.element.textContent.slice(0, -1);
-                i++;
-                if (i >= count) {
-                    clearInterval(interval);
-                    resolve();
-                }
-            }, this.options.delay / 2);
-        });
-        return this;
-    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
 
-    deleteAll() {
-        this.addToQueue((resolve) => {
-            const interval = setInterval(() => {
-                this.element.textContent = this.element.textContent.slice(0, -1);
-                if (this.element.textContent.length === 0) {
-                    clearInterval(interval);
-                    resolve();
-                }
-            }, this.options.delay / 2);
-        });
-        return this;
-    }
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 
-    pauseFor(ms) {
-        this.addToQueue((resolve) => {
-            setTimeout(resolve, ms);
-        });
-        return this;
-    }
+    // ------------------------------------------------------------------
+    // Typewriter
+    // ------------------------------------------------------------------
+    const roles = [
+        'AI Engineer',
+        'LLM & RAG Developer',
+        'NLP Researcher',
+        'Machine Learning Enthusiast'
+    ];
+    const typewriter = document.getElementById('typewriter');
+    let roleIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
 
-    async start() {
-        this.isTyping = true;
-        while (this.isTyping) {
-            for (const func of this.queue) {
-                await func();
-            }
-            if (!this.options.loop) {
-                this.isTyping = false;
-            }
-        }
-    }
+    function type() {
+        const current = roles[roleIndex];
 
-    addToQueue(callback) {
-        this.queue.push(() => new Promise(callback));
-    }
-}
-
-// Particle background animation
-class ParticleBackground {
-    constructor(container) {
-        this.container = container;
-        this.particles = [];
-        this.particleCount = 50;
-        this.init();
-    }
-    
-    init() {
-        this.createCanvas();
-        this.createParticles();
-        this.animate();
-        this.bindEvents();
-    }
-    
-    createCanvas() {
-        this.canvas = document.createElement('canvas');
-        this.ctx = this.canvas.getContext('2d');
-        this.canvas.style.cssText = `
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        `;
-        this.container.style.position = 'relative';
-        this.container.appendChild(this.canvas);
-        this.resize();
-    }
-    
-    createParticles() {
-        for (let i = 0; i < this.particleCount; i++) {
-            this.particles.push({
-                x: Math.random() * this.canvas.width,
-                y: Math.random() * this.canvas.height,
-                vx: (Math.random() - 0.5) * 0.5,
-                vy: (Math.random() - 0.5) * 0.5,
-                radius: Math.random() * 2 + 1,
-                opacity: Math.random() * 0.5 + 0.2
-            });
-        }
-    }
-    
-    animate() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        
-        this.particles.forEach(particle => {
-            particle.x += particle.vx;
-            particle.y += particle.vy;
-            
-            if (particle.x < 0 || particle.x > this.canvas.width) particle.vx *= -1;
-            if (particle.y < 0 || particle.y > this.canvas.height) particle.vy *= -1;
-            
-            this.ctx.beginPath();
-            this.ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-            this.ctx.fillStyle = `rgba(99, 102, 241, ${particle.opacity})`;
-            this.ctx.fill();
-        });
-        
-        requestAnimationFrame(() => this.animate());
-    }
-    
-    resize() {
-        this.canvas.width = this.container.offsetWidth;
-        this.canvas.height = this.container.offsetHeight;
-    }
-    
-    bindEvents() {
-        window.addEventListener('resize', () => this.resize());
-    }
-}
-
-// Form handling
-class FormHandler {
-    constructor() {
-        this.init();
-    }
-    
-    init() {
-        const form = document.querySelector('.contact-form form');
-        if (form) {
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                this.handleSubmit(form);
-            });
-        }
-    }
-    
-    handleSubmit(form) {
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData.entries());
-        
-        // Show success message
-        this.showMessage('Cảm ơn bạn đã liên hệ! Tôi sẽ phản hồi sớm nhất có thể.', 'success');
-        
-        // Reset form
-        form.reset();
-        
-        // In a real application, you would send the data to your server
-        console.log('Form submitted:', data);
-    }
-    
-    showMessage(message, type = 'info') {
-        // Remove existing messages
-        const existingMessage = document.querySelector('.form-message');
-        if (existingMessage) {
-            existingMessage.remove();
-        }
-        
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `form-message ${type}`;
-        messageDiv.textContent = message;
-        messageDiv.style.cssText = `
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: ${type === 'success' ? '#10b981' : '#3b82f6'};
-            color: white;
-            padding: 16px 24px;
-            border-radius: 8px;
-            z-index: 10000;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            animation: fadeInUp 0.3s ease-out;
-        `;
-        
-        document.body.appendChild(messageDiv);
-        
-        // Remove message after 3 seconds
-        setTimeout(() => {
-            messageDiv.style.animation = 'fadeOut 0.3s ease-out forwards';
-            setTimeout(() => messageDiv.remove(), 300);
-        }, 3000);
-    }
-}
-
-// Initialize everything when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-
-    // --- LOADING SCREEN ---
-    const loadingScreen = document.getElementById('loadingScreen');
-    if (loadingScreen) {
-        const progressFill = document.querySelector('.progress-fill');
-        const loadingTextContainer = document.getElementById('loading-text');
-
-        if (progressFill && loadingTextContainer) {
-            progressFill.style.width = '100%';
-            const p = document.createElement('p');
-            p.textContent = 'Welcome.';
-            p.classList.add('loading-line', 'visible');
-            loadingTextContainer.appendChild(p);
+        if (deleting) {
+            charIndex--;
+        } else {
+            charIndex++;
         }
 
-        setTimeout(() => {
-            loadingScreen.classList.add('hidden');
-        }, 250);
+        typewriter.textContent = current.slice(0, charIndex);
+
+        let delay = deleting ? 40 : 85;
+
+        if (!deleting && charIndex === current.length) {
+            delay = 2200;
+            deleting = true;
+        } else if (deleting && charIndex === 0) {
+            deleting = false;
+            roleIndex = (roleIndex + 1) % roles.length;
+            delay = 400;
+        }
+
+        setTimeout(type, delay);
     }
 
-    // --- TYPEWRITER EFFECT ---
-    const typewriterElement = document.getElementById('heroTypewriter');
-    if (typewriterElement) {
-        const typewriter = new Typewriter(typewriterElement, {
-            loop: true,
-            delay: 75,
-        });
+    type();
 
-        typewriter
-            .typeString('AI R&D')
-            .pauseFor(2500)
-            .deleteAll()
-            .typeString('AI Agent Developer')
-            .pauseFor(2500)
-            .deleteAll()
-            .typeString('AI ASSISTANT RESEARCH')
-            .pauseFor(2500)
-            .deleteAll()
-            .start();
-    }
-    
-    // --- NAVIGATION ---
-    class Navigation {
-        constructor() {
-            this.hamburger = document.querySelector('.hamburger');
-            this.navMenu = document.querySelector('.nav-menu');
-            this.navLinks = document.querySelectorAll('.nav-menu a');
-            this.init();
-        }
+    // ------------------------------------------------------------------
+    // Scroll reveal
+    // ------------------------------------------------------------------
+    const revealElements = document.querySelectorAll('.reveal');
 
-        init() {
-            if (this.hamburger) {
-                this.hamburger.addEventListener('click', () => this.toggleMenu());
-            }
-            if (this.navLinks) {
-                this.navLinks.forEach(link => {
-                    link.addEventListener('click', () => this.closeMenu());
-                });
-            }
-            window.addEventListener('scroll', () => this.updateActiveLink());
-        }
-
-        toggleMenu() {
-            if (this.hamburger && this.navMenu) {
-                this.hamburger.classList.toggle('active');
-                this.navMenu.classList.toggle('active');
-            }
-        }
-
-        closeMenu() {
-            if (this.hamburger && this.navMenu) {
-                this.hamburger.classList.remove('active');
-                this.navMenu.classList.remove('active');
-            }
-        }
-
-        updateActiveLink() {
-            let current = '';
-            const sections = document.querySelectorAll('section[id]');
-            if (sections.length === 0) return;
-
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (window.pageYOffset >= sectionTop - 75) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            if (this.navLinks) {
-                this.navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') && link.getAttribute('href').includes(current)) {
-                        link.classList.add('active');
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
                     }
                 });
-            }
-        }
+            },
+            { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+        );
+
+        revealElements.forEach((el, i) => {
+            el.style.transitionDelay = `${Math.min(i % 6, 4) * 0.07}s`;
+            observer.observe(el);
+        });
+    } else {
+        revealElements.forEach((el) => el.classList.add('visible'));
     }
 
-    // --- SCROLL ANIMATIONS ---
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, { threshold: 0.1 });
+    // ------------------------------------------------------------------
+    // Scroll-spy — highlight the nav link of the section in view
+    // ------------------------------------------------------------------
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
 
-    document.querySelectorAll('section[id], .skill-category, .project-card, .achievement-card, .experience-card, .publication-card').forEach(el => {
-        observer.observe(el);
-    });
-    
-    // Initialize Navigation
-    new Navigation();
-    
-    // Initialize hero section enhancements
-    const heroSection = document.querySelector('.hero');
-    if (heroSection) {
-        // Assuming ParticleBackground is defined elsewhere and is safe to call
-        // new ParticleBackground(heroSection);
-    }
-    
-    // Initialize typing animation for subtitle
-    const heroSubtitle = document.querySelector('.hero-subtitle');
-    if (heroSubtitle) {
-        // const texts = [ ... ];
-        // new TypingAnimation(heroSubtitle, texts);
-    }
-    
-    // Add smooth reveal animations to sections
-    const sections = document.querySelectorAll('section');
-    if (sections) {
-        sections.forEach((section, index) => {
-            section.style.animationDelay = `${index * 0.1}s`;
-        });
-    }
-    
-    // Add hover effects to project cards
-    const projectCards = document.querySelectorAll('.project-card');
-    if (projectCards) {
-        projectCards.forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-10px) scale(1.02)';
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(0) scale(1)';
-            });
-        });
-    }
-    
-    // Add loading animation
-    if (document.body) {
-        document.body.style.opacity = '0';
-        setTimeout(() => {
-            document.body.style.transition = 'opacity 0.5s ease';
-            document.body.style.opacity = '1';
-        }, 100);
-    }
-});
+    if ('IntersectionObserver' in window && sections.length) {
+        const spy = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (!entry.isIntersecting) return;
+                    navLinks.forEach((link) => {
+                        link.classList.toggle(
+                            'active',
+                            link.getAttribute('href') === `#${entry.target.id}`
+                        );
+                    });
+                });
+            },
+            { rootMargin: '-45% 0px -50% 0px' }
+        );
 
+        sections.forEach((section) => spy.observe(section));
+    }
+})();
