@@ -18,14 +18,17 @@ module.exports = {
     name: 'Tran Phuoc Sang',
     nameNative: 'Trần Phước Sang',
     headline: 'AI Agent Developer · LLM Researcher',
+    // Shown in the sidebar with an icon. Organisation names only; the role is in `headline`.
+    // kind: 'work' (briefcase icon) or 'lab' (flask icon).
     affiliations: [
-      { label: 'AI Agent Developer at CodePresso', url: '' },
-      { label: 'Research Assistant at NLP & KD Lab, Ton Duc Thang University', url: '' },
+      { kind: 'work', label: 'CodePresso', url: '' },
+      { kind: 'lab', label: 'NLP & KD Lab, Ton Duc Thang University', url: '' },
     ],
+    location: 'Ho Chi Minh City, Vietnam',
+    initials: 'PS', // shown in the avatar block until `photo` is set
     // TODO(owner): rewrite the bio in your own words.
     bioHtml: [
-      '<p>I am an AI Agent Developer at CodePresso and a Research Assistant at the Natural Language Processing &amp; Knowledge Discovery Lab, Ton Duc Thang University.</p>',
-      '<p>My research focuses on large language models: retrieval-augmented generation for legal documents, domain-specific fine-tuning, and synthetic data for low-resource tasks. At work I build LLM-based agents for automatic assessment content generation, code scoring, and code-interview analysis.</p>',
+      '<p>My research focuses on large language models: retrieval-augmented generation for legal documents, domain-specific fine-tuning, and synthetic data for low-resource tasks. At CodePresso I build LLM-based agents for automatic assessment content generation, code scoring, and code-interview analysis.</p>',
     ],
     interests: [
       'Large Language Models',
