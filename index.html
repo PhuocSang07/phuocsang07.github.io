@@ -1,462 +1,280 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tran Phuoc Sang - Portfolio</title>
+    <!-- Regions between build markers are generated from content/site-data.js by `node build-site.js`. Do not edit them by hand. -->
+    <!-- build:head-meta -->
+    <title>Tran Phuoc Sang — AI Agent Developer &amp; LLM Researcher</title>
+    <meta name="description" content="Tran Phuoc Sang: AI Agent Developer at CodePresso and LLM researcher at NLP &amp; KD Lab, Ton Duc Thang University. Publications, projects and experience.">
+    <meta name="author" content="Tran Phuoc Sang">
+    <link rel="canonical" href="https://phuocsang07.github.io/">
+    <meta property="og:type" content="profile">
+    <meta property="og:title" content="Tran Phuoc Sang — AI Agent Developer &amp; LLM Researcher">
+    <meta property="og:description" content="Tran Phuoc Sang: AI Agent Developer at CodePresso and LLM researcher at NLP &amp; KD Lab, Ton Duc Thang University. Publications, projects and experience.">
+    <meta property="og:url" content="https://phuocsang07.github.io/">
+    <meta name="twitter:card" content="summary">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://phuocsang07.github.io/#person",
+          "name": "Tran Phuoc Sang",
+          "url": "https://phuocsang07.github.io/",
+          "email": "mailto:transhack09@gmail.com",
+          "jobTitle": "AI Agent Developer · LLM Researcher",
+          "alternateName": "Trần Phước Sang",
+          "sameAs": [
+            "https://github.com/PhuocSang07",
+            "https://huggingface.co/phuocsang",
+            "https://www.linkedin.com/in/phuocsang2412/"
+          ],
+          "knowsAbout": [
+            "Large Language Models",
+            "Retrieval-Augmented Generation",
+            "Parameter-efficient fine-tuning",
+            "Synthetic data",
+            "AI Agents"
+          ],
+          "worksFor": {
+            "@type": "Organization",
+            "name": "CodePresso"
+          },
+          "alumniOf": [
+            {
+              "@type": "CollegeOrUniversity",
+              "name": "Ton Duc Thang University"
+            }
+          ]
+        },
+        {
+          "@type": "ScholarlyArticle",
+          "headline": "Addressing Data Scarcity and Imbalance in Depression Screening with Persona-Driven Synthetic Data",
+          "name": "Addressing Data Scarcity and Imbalance in Depression Screening with Persona-Driven Synthetic Data",
+          "datePublished": "2025",
+          "author": [
+            {
+              "@type": "Person",
+              "name": "Luyen Vo"
+            },
+            {
+              "@id": "https://phuocsang07.github.io/#person"
+            },
+            {
+              "@type": "Person",
+              "name": "Anh-Cuong Le"
+            }
+          ],
+          "isPartOf": {
+            "@type": "PublicationEvent",
+            "name": "International Symposium on Information and Communication Technology (SOICT)"
+          }
+        }
+      ]
+    }
+    </script>
+    <!-- /build:head-meta -->
+    <script>
+        (function () {
+            try {
+                var t = localStorage.getItem('theme');
+                if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                document.documentElement.setAttribute('data-theme', t);
+            } catch (e) { }
+        })();
+    </script>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono&family=Source+Serif+4:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/portfolio.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Poppins:wght@300;400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
 </head>
-<body>
-    <!-- Loading Screen -->
-    <div id="loadingScreen" class="loading-screen">
-        <div class="terminal-container">
-            <div class="terminal-header">
-                <div class="terminal-controls">
-                    <span class="terminal-btn close"></span>
-                    <span class="terminal-btn minimize"></span>
-                    <span class="terminal-btn maximize"></span>
-                </div>
-                <div class="terminal-title">neural_interface.exe</div>
-            </div>
-            <div class="terminal-body">
-                <div class="terminal-line">
-                    <span class="prompt">root@ai-system:~$</span>
-                    <span class="command" id="loading-command"></span>
-                    <span class="cursor">|</span>
-                </div>
-                <div class="loading-text" id="loading-text"></div>
-                <div class="progress-bar">
-                    <div class="progress-fill"></div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <h2 style="user-select: none;">Tran Phuoc Sang</h2>
-            </div>
-            <ul class="nav-menu">
+<body id="top">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+        <div class="container header-inner">
+            <!-- build:nav -->
+            <a class="brand" href="#top">Tran Phuoc Sang</a>
+            <nav class="site-nav" aria-label="Primary">
+              <ul>
                 <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#experience">Experience</a></li>
+                <li><a href="#news">News</a></li>
+                <li><a href="#publications">Publications</a></li>
                 <li><a href="#projects">Projects</a></li>
-                <li><a href="#publications">Publications & Achievements</a></li>
-                <li><a href="blog/index.html">Blog</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+                <li><a href="#experience">Experience</a></li>
+              </ul>
+            </nav>
+            <!-- /build:nav -->
+            <button type="button" class="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false">
+                <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+                <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 1.5v2.5M12 20v2.5M1.5 12H4M20 12h2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg>
+            </button>
         </div>
-    </nav>
+    </header>
 
-    <!-- Hero Section -->
-    <section id="hero" class="hero">
-        <div class="matrix-bg"></div>
-        <div class="neural-grid"></div>
-        <div class="hero-container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <div class="glitch-wrapper">
-                        <h1 class="hero-title glitch" data-text="TRAN PHUOC SANG">
-                           TRAN PHUOC SANG
-                        </h1>
-                    </div>
-                    <div class="hero-subtitle-wrapper">
-                        <span class="terminal-prompt">$[AI]</span>
-                        <span class="typewriter" id="heroTypewriter"></span>
-                    </div>
-                    <div class="status-bar">
-                        <div class="status-item">
-                            <span class="status-label">STATUS:</span>
-                            <span class="status-value online">ONLINE</span>
-                        </div>
-                        <div class="status-item">
-                            <span class="status-label">ROLE:</span>
-                            <span class="status-value">AI Agent Developer</span>
-                        </div>
-                        <div class="status-item">
-                            <span class="status-label">LEVEL:</span>
-                            <span class="status-value">INTERN | LESS THAN 1 YEAR</span>
-                        </div>
-                    </div>
-                    <div class="terminal-output">
-                        <div class="output-line">
-                            <span class="output-prompt">></span>
-                            <span class="output-text">AI system initialization successful...</span>
-                        </div>
-                        <div class="output-line">
-                            <span class="output-prompt">></span>
-                            <span class="output-text">Expertise: Machine Learning | Deep Learning | NLP</span>
-                        </div>
-                        <div class="output-line">
-                            <span class="output-prompt">></span>
-                            <span class="output-text">Status: Ready for AI Engineer internship</span>
-                        </div>
-                    </div>
-                    <div class="hero-buttons">
-                        <button class="btn btn-primary cyber" onclick="document.getElementById('about').scrollIntoView({ behavior: 'smooth' });">
-                            <span class="btn-text">ACCESS SYSTEM</span>
-                            <span class="btn-glitch"></span>
-                        </button>
-                        <button class="btn btn-secondary cyber" onclick="document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });">
-                            <span class="btn-text">VIEW PROJECTS</span>
-                            <span class="btn-glitch"></span>
-                        </button>
-                    </div>
-                </div>
-                <div class="hero-visual">
-                    <div class="hologram-avatar">
-                        <div class="avatar-container">
-                            <div class="avatar-ring"></div>
-                            <div class="avatar-inner">
-                                <i class="fas fa-robot"></i>
-                            </div>
-                            <div class="scan-lines"></div>
-                        </div>
-                    </div>
-                </div>
+    <main id="main" class="container">
+        <!-- build:about -->
+        <section id="about" class="about" aria-labelledby="about-title">
+          <div class="about-text">
+            <h1 id="about-title" class="name">Tran Phuoc Sang</h1>
+            <p class="name-native" lang="vi">Trần Phước Sang</p>
+            <p class="headline">AI Agent Developer · LLM Researcher</p>
+            <p class="affiliations">AI Agent Developer at CodePresso<br>Research Assistant at NLP &amp; KD Lab, Ton Duc Thang University</p>
+            <div class="bio">
+              <p>I am an AI Agent Developer at CodePresso and a Research Assistant at the Natural Language Processing &amp; Knowledge Discovery Lab, Ton Duc Thang University.</p>
+              <p>My research focuses on large language models: retrieval-augmented generation for legal documents, domain-specific fine-tuning, and synthetic data for low-resource tasks. At work I build LLM-based agents for automatic assessment content generation, code scoring, and code-interview analysis.</p>
             </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-                                    <h2 class="section-title">🤖 ABOUT ME 🤖</h2>
-            <div class="about-content">
-                <div class="about-image">
-                    <div class="image-inner">
-                        <i class="fas fa-user-astronaut"></i>
-                    </div>
-                </div>
-                <div class="about-text">
-                    <h3>Tran Phuoc Sang</h3>
-                    <p class="subtitle">Computer Science Student | AI Assistant Research</p>
-                    <p>
-                        As a fourth-year student passionate about AI, I am constantly seeking opportunities to apply and expand my knowledge in machine learning and deep learning. My goal is to contribute to developing impactful AI solutions that drive organizational success.
-                    </p>
-                    <div class="about-info">
-                        <div class="info-item">
-                            <i class="fas fa-university"></i>
-                            <strong>Education:</strong>
-                            <span>Ton Duc Thang University, GPA: 8.1</span>
-                        </div>
-                        <div class="info-item">
-                            <i class="fas fa-envelope"></i>
-                            <strong>Email:</strong>
-                            <span>transhack09@gmail.com</span>
-                        </div>
-                        <div class="info-item">
-                            <i class="fab fa-github"></i>
-                            <strong>GitHub:</strong>
-                            <span><a href="https://github.com/PhuocSang07" target="_blank">PhuocSang07</a></span>
-                        </div>
-                        <div class="info-item">
-                            <i class="fas fa-phone"></i>
-                            <strong>Phone:</strong>
-                            <span>0347763291</span>
-                        </div>
-                        <div class="info-item">
-                            <i class="fas fa-language"></i>
-                            <strong>Languages:</strong>
-                            <span>Aptis Level B2 (L: C1, S: B1, R: B2, W: B2)</span>
-                        </div>
-                    </div>
-                </div>
+            <dl class="facts">
+              <dt>Research interests</dt><dd>Large Language Models · Retrieval-Augmented Generation · Parameter-efficient fine-tuning · Synthetic data · AI Agents</dd>
+              <dt>Stack</dt><dd>Python · PyTorch · Hugging Face · LangChain · LoRA / PEFT · Qdrant · PostgreSQL · Docker · Streamlit</dd>
+              <dt>Languages</dt><dd>Vietnamese (native) · English, Aptis B2 (L: C1, S: B1, R: B2, W: B2)</dd>
+            </dl>
+            <p class="profile-links"><a href="mailto:transhack09@gmail.com">Email</a><span aria-hidden="true"> · </span><a href="https://github.com/PhuocSang07" rel="noopener">GitHub</a><span aria-hidden="true"> · </span><a href="https://huggingface.co/phuocsang" rel="noopener">Hugging Face</a><span aria-hidden="true"> · </span><a href="https://www.linkedin.com/in/phuocsang2412/" rel="noopener">LinkedIn</a></p>
+          </div>
+        </section>
+        <!-- /build:about -->
+        <!-- build:news -->
+        <section id="news" class="section" aria-labelledby="news-title">
+          <h2 id="news-title">News</h2>
+          <ul class="news">
+            <li><time datetime="2025-12">Dec 2025</time><span>Our team <em>TDTU_Les Secrets Haches</em> won <strong>2nd Prize</strong> at the National Finals of the Vietnam Student AI Olympics 2025.</span></li>
+            <li><time datetime="2025-06">Jun 2025</time><span>Joined <strong>CodePresso</strong> as an AI Agent Developer.</span></li>
+            <li><time datetime="2025-01">Jan 2025</time><span>Started as a Research Assistant at the NLP &amp; KD Lab, Ton Duc Thang University.</span></li>
+          </ul>
+        </section>
+        <!-- /build:news -->
+        <!-- build:publications -->
+        <section id="publications" class="section" aria-labelledby="publications-title">
+          <h2 id="publications-title">Publications</h2>
+          <p class="section-note"><strong>Bold</strong> marks my name.</p>
+          <article class="pub">
+            <span class="venue-badge">SOICT 2025</span>
+            <div class="pub-body">
+              <h3 class="pub-title">Addressing Data Scarcity and Imbalance in Depression Screening with Persona-Driven Synthetic Data</h3>
+              <p class="pub-authors">Luyen Vo, <strong>Phuoc-Sang Tran</strong>, Anh-Cuong Le</p>
+              <p class="pub-venue"><em>International Symposium on Information and Communication Technology (SOICT), 2025</em></p>
             </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills" class="skills">
-        <div class="container">
-            <h2 class="section-title">🛠️ TOP SKILLS 🛠️</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3>AI & Machine Learning</h3>
-                    <ul>
-                        <li><i class="fas fa-brain"></i> Large Language Models (LLM)</li>
-                        <li><i class="fas fa-cogs"></i> Retrieval-Augmented Generation (RAG)</li>
-                        <li><i class="fas fa-lightbulb"></i> Fine-tuning (LoRA, Peft)</li>
-                        <li><i class="fab fa-python"></i> PyTorch</li>
-                        <li><i class="fas fa-link"></i> LangChain</li>
-                        <li>🤗 Hugging Face</li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3>Programming & Databases</h3>
-                    <ul>
-                        <li><i class="fab fa-python"></i> Python</li>
-                        <li><i class="fas fa-database"></i> PostgreSQL</li>
-                        <li><i class="fas fa-search-plus"></i> Qdrant</li>
-                        <li><i class="fab fa-git-alt"></i> Git & GitHub</li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3>Web & Deployment</h3>
-                    <ul>
-                        <li><i class="fas fa-desktop"></i> Streamlit</li>
-                        <li><i class="fab fa-docker"></i> Docker</li>
-                        <li><i class="fas fa-server"></i> REST APIs</li>
-                    </ul>
-                </div>
+          </article>
+        </section>
+        <!-- /build:publications -->
+        <!-- build:projects -->
+        <section id="projects" class="section" aria-labelledby="projects-title">
+          <h2 id="projects-title">Projects</h2>
+          <div class="project-grid">
+            <article class="project">
+              <h3>Legal Chatbot with Advanced RAG</h3>
+              <p>Legal question-answering system for Vietnamese law built on retrieval-augmented generation, with hierarchical document retrieval and a Streamlit interface.</p>
+              <p class="stack">Python · LangChain · Qdrant · PostgreSQL · Streamlit</p>
+              <div class="pub-actions">
+                <a href="https://github.com/PhuocSang07/legal-chatbot" class="btn-link" rel="noopener">Code</a>
+              </div>
+            </article>
+            <article class="project">
+              <h3>Qwen2.5-3B Fine-tuned for Vietnamese Law</h3>
+              <p>Fine-tuned Qwen2.5-3B on a Vietnamese legal corpus and QA dataset for a legal chatbot, using Unsloth with LoRA.</p>
+              <p class="stack">Python · PyTorch · Hugging Face · Unsloth · LoRA</p>
+              <div class="pub-actions">
+                <a href="https://huggingface.co/phuocsang/qwen2.5-3B-Finetune-Vietnamese-Law" class="btn-link" rel="noopener">Model</a>
+              </div>
+            </article>
+            <article class="project">
+              <h3>Vistral-7B Fine-tuned for a Travel Chatbot</h3>
+              <p>Loaded Viet-Mistral-7B-Chat in 4-bit precision and fine-tuned it with LoRA on a Vietnamese travel QA dataset generated by Gemini 1.5 Pro.</p>
+              <p class="stack">Python · PyTorch · Hugging Face · PEFT · LoRA</p>
+              <div class="pub-actions">
+                <a href="https://github.com/PhuocSang07/FineTuning-Vistral7B-q4-travel-dataset" class="btn-link" rel="noopener">Code</a>
+              </div>
+            </article>
+          </div>
+        </section>
+        <!-- /build:projects -->
+        <!-- build:experience -->
+        <section id="experience" class="section" aria-labelledby="experience-title">
+          <h2 id="experience-title">Experience</h2>
+          <article class="entry">
+            <p class="when"><span class="dates">Jun 2025 – Present</span><span class="duration" data-start="2025-06"></span></p>
+            <div class="entry-body">
+              <h3>AI Agent Developer</h3>
+              <p class="org">CodePresso · <span class="muted">Ho Chi Minh City, Vietnam</span></p>
+              <ul>
+                <li>Develop and enhance an automatic generation system that keeps pace with the consumption cycle of assessment content.</li>
+                <li>Improve the scoring function of a competency assessment service, evaluating logic, code quality and output.</li>
+                <li>Build automatic error-description generation to support efficient learning.</li>
+                <li>Reduce service cost by introducing open-source LLM and sLLM models.</li>
+                <li>Implement a code-interview performance and analysis system.</li>
+              </ul>
+              <p class="stack">Python · PyTorch · LangChain · Hugging Face · AI Agents</p>
             </div>
-        </div>
-    </section>
-
-    <!-- Experience Section -->
-    <section id="experience" class="experience">
-        <div class="container">
-                                    <h2 class="section-title">⚡ EXPERIENCE ⚡</h2>
-            <div class="experience-content">
-                <div class="experience-card">
-                    <div class="experience-left">
-                        <h3 class="experience-job-title">AI R&D Intern</h3>
-                        <p class="experience-company">CodePresso</p>
-                        <p class="experience-location">Ho Chi Minh City, Vietnam</p>
-                        <p class="experience-duration">Jun 2025 - Present</p>
-                        <div class="experience-skills">
-                            <h4>Tech Stack</h4>
-                            <div class="skills-list">
-                                <span>Python</span>
-                                <span>PyTorch</span>
-                                <span>LangChain</span>
-                                <span>LangGraph</span>
-                                <span>LLM</span>
-                                <span>Chatbot</span>
-                                <span>Hugging Face</span>
-                            </div>
-                            <h4>Soft Skills</h4>
-                            <div class="skills-list">
-                                <span>Teamwork</span>
-                                <span>Communication</span>
-                                <span>Problem Solving</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="experience-right">
-                        <h4>Responsibilities</h4>
-                        <ul>
-                            <li>Develop and enhance an automatic generation system to efficiently respond to the consumption cycle of assessment content.</li>
-                            <li>Enhance the scoring function for a reliable competency assessment service, assessing logic, code quality, and output.</li>
-                            <li>Develop an automatic error description generation function for efficient learning.</li>
-                            <li>Reduce service costs through the introduction of Open Source LLM and sLLM models.</li>
-                            <li>Implement a code interview performance and analysis system.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="experience-card">
-                    <div class="experience-left">
-                        <h3 class="experience-job-title">Research Assistant</h3>
-                        <p class="experience-company">Natural Language Processing & Knowledge Discovery Lab TDTU</p>
-                        <p class="experience-location">Ho Chi Minh City, Vietnam</p>
-                        <p class="experience-duration">Jan 2025 - Present</p>
-                        <div class="experience-skills">
-                            <h4>Tech Stack</h4>
-                            <div class="skills-list">
-                                <span>Python</span>
-                                <span>PyTorch</span>
-                                <span>LangChain</span>
-                                <span>RAG</span>
-                                <span>LLM</span>
-                                <span>Chatbot</span>
-                                <span>NLP</span>
-                                <span>Hugging Face</span>
-                                <span>LoRA</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="experience-right">
-                        <h4>Responsibilities</h4>
-                        <ul>
-                            <li>Conducting research on advanced RAG techniques for legal document analysis.</li>
-                            <li>Fine-tuning large language models for domain-specific question answering.</li>
-                            <li>Developing and maintaining data processing pipelines for NLP tasks.</li>
-                        </ul>
-                    </div>
-                </div>
+          </article>
+          <article class="entry">
+            <p class="when"><span class="dates">Jan 2025 – Present</span><span class="duration" data-start="2025-01"></span></p>
+            <div class="entry-body">
+              <h3>Research Assistant</h3>
+              <p class="org">Natural Language Processing &amp; Knowledge Discovery Lab, Ton Duc Thang University · <span class="muted">Ho Chi Minh City, Vietnam</span></p>
+              <ul>
+                <li>Research advanced RAG techniques for legal document analysis.</li>
+                <li>Fine-tune large language models for domain-specific question answering.</li>
+                <li>Develop and maintain data-processing pipelines for NLP tasks.</li>
+              </ul>
+              <p class="stack">Python · PyTorch · LangChain · RAG · LoRA · Hugging Face</p>
             </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
-        <div class="container">
-                                    <h2 class="section-title">💻 PROJECTS 💻</h2>
-            <div class="projects-grid">
-                <!-- Project 1 -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>Fine-tune Qwen2.5-3B for Legal Chatbot</h3>
-                        <p>
-                            Fine-tuned Qwen2.5-3B model on legal text corpus and QA dataset for legal chatbot. Used unsloth library combined with LoRA technique.
-                        </p>
-                        <div class="project-tech">
-                            <span>Python</span>
-                            <span>PyTorch</span>
-                            <span>Hugging Face</span>
-                            <span>LoRA</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://huggingface.co/phuocsang/qwen2.5-3B-Finetune-Vietnamese-Law" target="_blank">
-                                <i class="fas fa-external-link-alt"></i> Hugging Face
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 2 -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-comments"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>Legal Chatbot with Advanced RAG</h3>
-                        <p>
-                            Developed advanced legal chatbot system for Vietnamese law using RAG techniques. Implemented hierarchical document retrieval with user-friendly Streamlit interface.
-                        </p>
-                        <div class="project-tech">
-                            <span>Python</span>
-                            <span>PostgreSQL</span>
-                            <span>Qdrant</span>
-                            <span>Streamlit</span>
-                            <span>LangChain</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/PhuocSang07/legal-chatbot" target="_blank">
-                                <i class="fab fa-github"></i> GitHub
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 3 -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-plane"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>Fine-tune Vistral-7B For Travel Chatbot</h3>
-                        <p>
-                            Loaded Viet-Mistral-7B-Chat model in 4-bit precision and applied LoRA technology to fine-tune on Vietnamese travel QA dataset generated by Gemini-1.5-pro.
-                        </p>
-                        <div class="project-tech">
-                            <span>Python</span>
-                            <span>PyTorch</span>
-                            <span>Hugging Face</span>
-                            <span>LoRA</span>
-                            <span>Peft</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/PhuocSang07/FineTuning-Vistral7B-q4-travel-dataset" target="_blank">
-                                <i class="fab fa-github"></i> GitHub
-                            </a>
-                        </div>
-                    </div>
-                </div>
+          </article>
+        </section>
+        <!-- /build:experience -->
+        <!-- build:education -->
+        <section id="education" class="section" aria-labelledby="education-title">
+          <h2 id="education-title">Education</h2>
+          <article class="entry">
+            <div class="entry-body">
+              <h3>B.Sc. in Computer Science</h3>
+              <p class="org"><a href="https://www.tdtu.edu.vn/" rel="noopener">Ton Duc Thang University</a></p>
+              <ul>
+                <li>GPA: 8.1 / 10</li>
+              </ul>
             </div>
-        </div>
-    </section>
-
-    <!-- Publications & Achievements Section -->
-    <section id="publications" class="publications">
-        <div class="container">
-            <h2 class="section-title">📄 PUBLICATIONS & ACHIEVEMENTS 🏆</h2>
-            <div class="publications-content">
-                <div class="publication-card">
-                    <div class="publication-icon">
-                        <i class="fas fa-file-alt"></i>
-                    </div>
-                    <div class="publication-info">
-                        <h3>Coming Soon...</h3>
-                        <p>
-                            Scientific publications will be updated soon.
-                        </p>
-                    </div>
-                </div>
+          </article>
+        </section>
+        <!-- /build:education -->
+        <!-- build:awards -->
+        <section id="awards" class="section" aria-labelledby="awards-title">
+          <h2 id="awards-title">Awards</h2>
+          <article class="entry">
+            <p class="when"><span class="dates">2025</span></p>
+            <div class="entry-body">
+              <h3>2nd Prize — Vietnam Student AI Olympics 2025 (National Finals)</h3>
+              <p>Team TDTU_Les Secrets Haches, Ton Duc Thang University.</p>
+              <div class="award-images">
+                <img src="assets/images/awards/olpai-2025-team.jpg" alt="The TDTU team at the Vietnam Student AI Olympics 2025 finals, HUTECH" width="1200" height="800" loading="lazy" decoding="async">
+                <img src="assets/images/awards/olpai-2025-certificate.jpg" alt="2nd Prize certificate, Vietnam Student AI Olympics 2025" width="1200" height="917" loading="lazy" decoding="async">
+              </div>
             </div>
-            <div class="achievements-content" style="margin-top: 2rem;">
-                <ul class="achievements-list">
-                    <li>
-                        <span class="achievement-icon">🥈</span>
-                        <div class="achievement-info">
-                            <h3>Top 2 - OAI HCMC 2025</h3>
-                            <p>Olympic AI Ho Chi Minh City 2025 at Hutech University.</p>
-                        </div>
-                    </li>
-                    <!-- Add more achievements as list items -->
-                </ul>
+          </article>
+          <article class="entry">
+            <p class="when"><span class="dates">2025</span></p>
+            <div class="entry-body">
+              <h3>Top 2 — Olympic AI Ho Chi Minh City 2025</h3>
+              <p>Held at HUTECH University.</p>
             </div>
-        </div>
-    </section>
+          </article>
+        </section>
+        <!-- /build:awards -->
+    </main>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-                                    <h2 class="section-title">📞 CONTACT ME 📞</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <h4>Email</h4>
-                            <p>transhack09@gmail.com</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <div>
-                            <h4>Phone</h4>
-                            <p>0347763291</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fab fa-github"></i>
-                        <div>
-                            <h4>GitHub</h4>
-                            <p><a href="https://github.com/PhuocSang07" target="_blank">github.com/PhuocSang07</a></p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        🤗
-                        <div>
-                            <h4>Hugging Face</h4>
-                            <p><a href="https://huggingface.co/phuocsang" target="_blank">huggingface.co/phuocsang</a></p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fab fa-linkedin"></i>
-                        <div>
-                            <h4>LinkedIn</h4>
-                            <p><a href="https://www.linkedin.com/in/phuocsang2412/" target="_blank">linkedin.com/in/phuocsang2412</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p>
-                © 2025 Tran Phuoc Sang. Designed & Developed with ❤️
-            </p>
-        </div>
+    <!-- build:footer -->
+    <footer class="site-footer">
+      <div class="container">
+        <p>© 2026 Tran Phuoc Sang · <a href="mailto:transhack09@gmail.com">transhack09@gmail.com</a></p>
+        <p class="muted">Last updated <time datetime="2026-11-15">2026-11-15</time></p>
+      </div>
     </footer>
+    <!-- /build:footer -->
 
-    <script src="assets/js/portfolio.js"></script>
+    <script src="assets/js/portfolio.js" defer></script>
 </body>
-</html>
 
+</html>

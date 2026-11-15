@@ -27,3 +27,7 @@ Thumbs.db
 # Temporary
 *.tmp
 *.bak
+
+# Local agent notes and plans
+.claude/
+plans/
