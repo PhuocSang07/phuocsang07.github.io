@@ -55,6 +55,30 @@
         },
         {
           "@type": "ScholarlyArticle",
+          "headline": "Steering Refusal via Knowledge Distillation: A Practical Recipe for Entity-Conditioned Unlearning in Vietnamese Language Models",
+          "name": "Steering Refusal via Knowledge Distillation: A Practical Recipe for Entity-Conditioned Unlearning in Vietnamese Language Models",
+          "datePublished": "2026",
+          "author": [
+            {
+              "@type": "Person",
+              "name": "Anh-Cuong Le"
+            },
+            {
+              "@id": "https://phuocsang07.github.io/#person"
+            },
+            {
+              "@type": "Person",
+              "name": "Thang V. Q. Le"
+            }
+          ],
+          "isPartOf": {
+            "@type": "PublicationEvent",
+            "name": "18th International Conference on Knowledge and Systems Engineering (KSE), Kanazawa, Japan"
+          },
+          "url": "https://drive.google.com/file/d/1K4s_01s2NAkXeZuQk_ikieH62jRrXAi6/view"
+        },
+        {
+          "@type": "ScholarlyArticle",
           "headline": "Addressing Data Scarcity and Imbalance in Depression Screening with Persona-Driven Synthetic Data",
           "name": "Addressing Data Scarcity and Imbalance in Depression Screening with Persona-Driven Synthetic Data",
           "datePublished": "2025",
@@ -160,6 +184,19 @@
             <section id="publications" class="section" aria-labelledby="publications-title">
               <h2 id="publications-title" class="section-label"><span class="section-no" aria-hidden="true">02</span><span>Publications</span></h2>
               <div class="section-body">
+                <article class="pub">
+                  <p class="pub-tag">KSE 2026</p>
+                  <h3 class="pub-title"><a href="https://drive.google.com/file/d/1K4s_01s2NAkXeZuQk_ikieH62jRrXAi6/view" rel="noopener">Steering Refusal via Knowledge Distillation: A Practical Recipe for Entity-Conditioned Unlearning in Vietnamese Language Models</a></h3>
+                  <p class="pub-authors">Anh-Cuong Le, <strong>Phuoc-Sang Tran</strong>, Thang V. Q. Le</p>
+                  <p class="pub-venue">18th International Conference on Knowledge and Systems Engineering (KSE), Kanazawa, Japan, 2026 · <span class="pub-note">Accepted, to appear</span></p>
+                  <div class="pub-actions">
+                    <a href="https://drive.google.com/file/d/1K4s_01s2NAkXeZuQk_ikieH62jRrXAi6/view" class="tag-link" rel="noopener"><span>PDF</span><svg class="icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+                    <details class="pub-extra">
+                      <summary class="tag-link">Abstract</summary>
+                      <p>Deployers sometimes need a language model to decline questions about a specific set of entities without losing other capabilities, for instance after a takedown request or across a licensing boundary. Fine-tuning on freshly labelled refusals can do this, but it needs new supervision each time the target set changes. Distillation offers a label-free alternative: a prompt already induces the refusal, so a frozen teacher shown that prompt supplies the training signal directly. We retarget this idea from whole domains to individual entities and to Vietnamese, and ablate four implementation choices invisible when the target is a whole domain. Two decide whether it works at all: leaving the reply wording unconstrained and delivering the prefix through the chat system role; without either, the student refuses nearly everything or nearly nothing. Filtering the distillation set by the teacher’s measured refusal adds five points, while naming only the entity each question concerns does not help. On a Vietnamese entity-conditioned refusal benchmark we build from UIT-ViQuAD 2.0, whose residual tier separability is measured rather than assumed away, forget refusal reaches 61% and 72% on Qwen3-4B and 8B (three seeds, SD at most 2 points) with VMLU within 3.0 points and perplexity within 0.3, at the cost of 18–19% erroneous refusal on retained topics; an NPO baseline under the same budget instead degrades retained answers and doubles perplexity. ROUGE-L recall, the metric most of this literature reports, cannot detect the 2–2.8-fold output-length increase that steering induces, so we recommend F-measure or exact match alongside it. The suppression is behavioural, not permanent: a few relearning steps remove the refusal at 4B and 8B, and vulnerability to prompt-only jailbreaks grows with scale.</p>
+                    </details>
+                  </div>
+                </article>
                 <article class="pub">
                   <p class="pub-tag">SOICT 2025</p>
                   <h3 class="pub-title"><a href="https://link.springer.com/chapter/10.1007/978-981-92-2584-2_47" rel="noopener">Addressing Data Scarcity and Imbalance in Depression Screening with Persona-Driven Synthetic Data</a></h3>

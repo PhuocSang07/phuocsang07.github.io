@@ -60,6 +60,21 @@ module.exports = {
 
   publications: [
     {
+      title:
+        'Steering Refusal via Knowledge Distillation: A Practical Recipe for Entity-Conditioned Unlearning in Vietnamese Language Models',
+      authors: [{ name: 'Anh-Cuong Le' }, { name: 'Phuoc-Sang Tran', me: true }, { name: 'Thang V. Q. Le' }],
+      venueShort: 'KSE 2026',
+      venue: '18th International Conference on Knowledge and Systems Engineering (KSE), Kanazawa, Japan',
+      year: 2026,
+      note: 'Accepted, to appear',
+      // TODO(owner): add `url` (publisher page) and `doi` once the proceedings are out
+      links: { url: '', pdf: 'https://drive.google.com/file/d/1K4s_01s2NAkXeZuQk_ikieH62jRrXAi6/view', arxiv: '', code: '', slides: '' },
+      doi: '',
+      abstract:
+        'Deployers sometimes need a language model to decline questions about a specific set of entities without losing other capabilities, for instance after a takedown request or across a licensing boundary. Fine-tuning on freshly labelled refusals can do this, but it needs new supervision each time the target set changes. Distillation offers a label-free alternative: a prompt already induces the refusal, so a frozen teacher shown that prompt supplies the training signal directly. We retarget this idea from whole domains to individual entities and to Vietnamese, and ablate four implementation choices invisible when the target is a whole domain. Two decide whether it works at all: leaving the reply wording unconstrained and delivering the prefix through the chat system role; without either, the student refuses nearly everything or nearly nothing. Filtering the distillation set by the teacher’s measured refusal adds five points, while naming only the entity each question concerns does not help. On a Vietnamese entity-conditioned refusal benchmark we build from UIT-ViQuAD 2.0, whose residual tier separability is measured rather than assumed away, forget refusal reaches 61% and 72% on Qwen3-4B and 8B (three seeds, SD at most 2 points) with VMLU within 3.0 points and perplexity within 0.3, at the cost of 18–19% erroneous refusal on retained topics; an NPO baseline under the same budget instead degrades retained answers and doubles perplexity. ROUGE-L recall, the metric most of this literature reports, cannot detect the 2–2.8-fold output-length increase that steering induces, so we recommend F-measure or exact match alongside it. The suppression is behavioural, not permanent: a few relearning steps remove the refusal at 4B and 8B, and vulnerability to prompt-only jailbreaks grows with scale.',
+      bibtex: '',
+    },
+    {
       title: 'Addressing Data Scarcity and Imbalance in Depression Screening with Persona-Driven Synthetic Data',
       authors: [{ name: 'Luyen Vo' }, { name: 'Phuoc-Sang Tran', me: true }, { name: 'Anh-Cuong Le' }],
       venueShort: 'SOICT 2025',
