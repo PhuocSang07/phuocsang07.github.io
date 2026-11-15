@@ -36,32 +36,12 @@ const PROJECT_LINKS = [
 ];
 const AFFILIATION_ICONS = { work: 'briefcase', study: 'cap', lab: 'flask' };
 const ENTRY_LINK_LABELS = { results: 'Official results', website: 'Website' };
-const SECTION_ICONS = {
-  about: 'user',
-  news: 'news',
-  publications: 'book',
-  projects: 'code',
-  experience: 'briefcase',
-  education: 'cap',
-  awards: 'trophy',
-};
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 // Inline SVG icons, one stroke family (Lucide, ISC licence) so every glyph matches.
 const ICONS = {
-  user: { body: '<circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/>' },
-  news: {
-    body: '<path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/>',
-  },
-  book: {
-    body: '<path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/>',
-  },
-  code: { body: '<path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/>' },
   cap: {
     body: '<path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/>',
-  },
-  trophy: {
-    body: '<path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>',
   },
   smile: {
     body: '<circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01"/><path d="M15 9h.01"/>',
@@ -76,12 +56,16 @@ const ICONS = {
   file: {
     body: '<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/>',
   },
-  external: { body: '<path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>' },
+  external: { body: '<path d="M7 7h10v10"/><path d="M7 17 17 7"/>' },
   github: {
     body: '<path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/>',
   },
   linkedin: {
     body: '<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>',
+  },
+  moon: { body: '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>' },
+  sun: {
+    body: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>',
   },
 };
 ICONS.scholar = ICONS.cap;
@@ -99,8 +83,8 @@ const list = (value) => (Array.isArray(value) ? value : []);
 
 const isExternal = (url) => /^(https?:)?\/\//.test(url);
 
-function icon(name, size = 18) {
-  return `<svg class="icon" viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name].body}</svg>`;
+function icon(name, size = 16, cls = 'icon') {
+  return `<svg class="${cls}" viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name].body}</svg>`;
 }
 
 function link(url, text, cls) {
@@ -113,9 +97,10 @@ function maybeLink(url, text) {
   return has(url) ? link(url, esc(text)) : esc(text);
 }
 
-function chipList(items, cls = '') {
-  const chips = list(items).map((t) => `<li class="chip${cls ? ` ${cls}` : ''}">${esc(t)}</li>`);
-  return `<ul class="chip-list">${chips.join('')}</ul>`;
+// Plain text list; separators are drawn in CSS.
+function inlineList(items, cls = '') {
+  const lis = list(items).map((t) => `<li>${esc(t)}</li>`);
+  return `<ul class="inline-list${cls ? ` ${cls}` : ''}">${lis.join('')}</ul>`;
 }
 
 // "YYYY-MM" -> "Jun 2025"; "YYYY" -> "2025".
@@ -206,8 +191,18 @@ function validate(data) {
 
 // ---------- renderers ----------
 
-function sectionOpen(id, title) {
-  return `<section id="${id}" class="section" aria-labelledby="${id}-title">\n  <h2 id="${id}-title"><span class="section-icon">${icon(SECTION_ICONS[id], 16)}</span>${title}</h2>`;
+// Sections are numbered in page order; main() renders them top to bottom.
+let sectionNo = 0;
+
+function section(id, title, bodyHtml) {
+  sectionNo += 1;
+  const no = String(sectionNo).padStart(2, '0');
+  return [
+    `<section id="${id}" class="section" aria-labelledby="${id}-title">`,
+    `  <h2 id="${id}-title" class="section-label"><span class="section-no" aria-hidden="true">${no}</span><span>${title}</span></h2>`,
+    `  <div class="section-body">\n${indent(bodyHtml, 4)}\n  </div>`,
+    '</section>',
+  ].join('\n');
 }
 
 function renderHeadMeta(data) {
@@ -271,13 +266,9 @@ function renderHeadMeta(data) {
   return lines.join('\n');
 }
 
-function renderSidebar(data) {
+function renderMasthead(data) {
   const p = data.profile;
   const links = p.links || {};
-
-  const avatar = has(p.photo)
-    ? `<img class="avatar" src="${esc(p.photo)}" alt="Portrait of ${esc(p.name)}" width="400" height="400">`
-    : `<div class="avatar avatar-fallback" aria-hidden="true">${esc(initialsOf(p))}</div>`;
 
   const ident = [`<h1 class="name">${esc(p.name)}</h1>`];
   if (has(p.nameNative)) ident.push(`<p class="name-native" lang="vi">${esc(p.nameNative)}</p>`);
@@ -285,31 +276,39 @@ function renderSidebar(data) {
 
   const meta = list(p.affiliations).map((a) => `<li>${icon(AFFILIATION_ICONS[a.kind])}<span>${maybeLink(a.url, a.label)}</span></li>`);
   if (has(p.location)) meta.push(`<li>${icon('pin')}<span>${esc(p.location)}</span></li>`);
+  if (meta.length) ident.push(`<ul class="masthead-meta">\n${indent(meta.join('\n'), 2)}\n</ul>`);
 
-  const profileLinks = [`<li>${link(`mailto:${p.email}`, `${icon('mail')}<span>Email</span>`)}</li>`].concat(
+  const contact = [`<li>${link(`mailto:${p.email}`, `${icon('mail')}<span>Email</span>`)}</li>`].concat(
     PROFILE_LINKS.filter(([k]) => has(links[k])).map(([k, label, ic]) => `<li>${link(links[k], `${icon(ic)}<span>${label}</span>`)}</li>`),
   );
+  if (has(links.cv)) contact.push(`<li>${link(links.cv, `${icon('file')}<span>CV</span>`, 'is-primary')}</li>`);
+  ident.push(`<ul class="masthead-links">\n${indent(contact.join('\n'), 2)}\n</ul>`);
 
   const out = [
-    '<div class="profile-head">',
-    `  ${avatar}`,
-    `  <div class="profile-ident">\n${indent(ident.join('\n'), 4)}\n  </div>`,
+    '<div class="topbar">',
+    `  <a class="monogram" href="#top" aria-label="${esc(p.name)}, back to top">${esc(initialsOf(p))}</a>`,
+    `  <button type="button" class="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false">${icon('moon', 18, 'icon-moon')}${icon('sun', 18, 'icon-sun')}</button>`,
     '</div>',
+    `<div class="masthead-body${has(p.photo) ? ' has-photo' : ''}">`,
+    `  <div class="masthead-text">\n${indent(ident.join('\n'), 4)}\n  </div>`,
   ];
-  if (meta.length) out.push(`<ul class="profile-meta">\n${indent(meta.join('\n'), 2)}\n</ul>`);
-  out.push(`<ul class="profile-links">\n${indent(profileLinks.join('\n'), 2)}\n</ul>`);
-  if (has(links.cv)) out.push(link(links.cv, `${icon('file')}<span>Download CV</span>`, 'btn-primary'));
+  if (has(p.photo)) out.push(`  <img class="portrait" src="${esc(p.photo)}" alt="Portrait of ${esc(p.name)}" width="400" height="400">`);
+  out.push('</div>');
   return out.join('\n');
 }
 
 function renderAbout(data) {
   const p = data.profile;
-  const out = [sectionOpen('about', 'About'), `  <div class="bio">\n${indent(list(p.bioHtml).join('\n'), 4)}\n  </div>`];
-  if (has(p.interests)) out.push(`  <h3 class="eyebrow">Research interests</h3>\n  ${chipList(p.interests, 'chip-accent')}`);
-  if (has(p.stack)) out.push(`  <h3 class="eyebrow">Stack</h3>\n  ${chipList(p.stack)}`);
-  if (has(p.languages)) out.push(`  <h3 class="eyebrow">Languages</h3>\n  <p class="languages">${esc(p.languages)}</p>`);
-  out.push('</section>');
-  return out.join('\n');
+  const body = [`<div class="bio">\n${indent(list(p.bioHtml).join('\n'), 2)}\n</div>`];
+  const facts = [];
+  if (has(p.interests)) facts.push(['Interests', inlineList(p.interests)]);
+  if (has(p.stack)) facts.push(['Stack', inlineList(p.stack)]);
+  if (has(p.languages)) facts.push(['Languages', esc(p.languages)]);
+  if (facts.length) {
+    const rows = facts.map(([k, v]) => `<div>\n  <dt>${k}</dt>\n  <dd>${v}</dd>\n</div>`);
+    body.push(`<dl class="facts">\n${indent(rows.join('\n'), 2)}\n</dl>`);
+  }
+  return section('about', 'About', body.join('\n'));
 }
 
 function renderNewsItem(n) {
@@ -319,148 +318,110 @@ function renderNewsItem(n) {
 function renderNews(items) {
   const visible = items.slice(0, NEWS_VISIBLE).map(renderNewsItem);
   const older = items.slice(NEWS_VISIBLE).map(renderNewsItem);
-  const out = [sectionOpen('news', 'News'), `  <ul class="news">\n${indent(visible.join('\n'), 4)}\n  </ul>`];
+  const body = [`<ul class="news">\n${indent(visible.join('\n'), 2)}\n</ul>`];
   if (older.length) {
-    out.push(
-      `  <details class="more">\n    <summary>Older news</summary>\n    <ul class="news">\n${indent(older.join('\n'), 6)}\n    </ul>\n  </details>`,
-    );
+    body.push(`<details class="more">\n  <summary>Older news</summary>\n  <ul class="news">\n${indent(older.join('\n'), 4)}\n  </ul>\n</details>`);
   }
-  out.push('</section>');
-  return out.join('\n');
+  return section('news', 'News', body.join('\n'));
 }
+
+const extLabel = (label) => `<span>${label}</span>${icon('external', 13)}`;
 
 function renderPublication(pub) {
   const authors = pub.authors.map((a) => (a.me ? `<strong>${esc(a.name)}</strong>` : esc(a.name))).join(', ');
   const titleUrl = pub.links && (pub.links.url || pub.links.arxiv || pub.links.pdf);
-  const venueLine = [has(pub.venue) ? esc(pub.venue) : esc(pub.venueShort), esc(pub.year)].join(', ');
+  const venue = has(pub.venue) ? pub.venue : pub.venueShort;
   const lines = [
+    `<p class="pub-tag">${esc(pub.venueShort)}</p>`,
     `<h3 class="pub-title">${has(titleUrl) ? link(titleUrl, esc(pub.title)) : esc(pub.title)}</h3>`,
     `<p class="pub-authors">${authors}</p>`,
-    `<p class="pub-venue"><em>${venueLine}</em>${has(pub.note) ? ` · <span class="pub-note">${esc(pub.note)}</span>` : ''}</p>`,
+    `<p class="pub-venue">${esc(venue)}, ${esc(pub.year)}${has(pub.note) ? ` · <span class="pub-note">${esc(pub.note)}</span>` : ''}</p>`,
   ];
-  const buttons = PUB_LINKS.filter(([key]) => has(pub.links && pub.links[key])).map(([key, label]) => link(pub.links[key], label, 'btn-link'));
-  if (has(pub.doi)) buttons.push(link(`https://doi.org/${pub.doi}`, 'DOI', 'btn-link'));
-  const details = [];
+  const actions = PUB_LINKS.filter(([key]) => has(pub.links && pub.links[key])).map(([key, label]) =>
+    link(pub.links[key], extLabel(label), 'tag-link'),
+  );
+  if (has(pub.doi)) actions.push(link(`https://doi.org/${pub.doi}`, extLabel('DOI'), 'tag-link'));
   if (has(pub.abstract)) {
-    details.push(`<details class="pub-extra">\n  <summary>Abstract</summary>\n  <p>${esc(pub.abstract)}</p>\n</details>`);
+    actions.push(`<details class="pub-extra">\n  <summary class="tag-link">Abstract</summary>\n  <p>${esc(pub.abstract)}</p>\n</details>`);
   }
   if (has(pub.bibtex)) {
-    details.push(
-      `<details class="pub-extra">\n  <summary>BibTeX</summary>\n  <pre class="bibtex"><code>${esc(pub.bibtex.trim())}</code></pre>\n</details>`,
+    actions.push(
+      `<details class="pub-extra">\n  <summary class="tag-link">BibTeX</summary>\n  <pre class="bibtex"><code>${esc(pub.bibtex.trim())}</code></pre>\n</details>`,
     );
   }
-  if (buttons.length || details.length) {
-    lines.push(`<div class="pub-actions">\n${indent([...buttons, ...details].join('\n'), 2)}\n</div>`);
-  }
-  return [
-    '<article class="pub">',
-    `  <span class="venue-badge">${esc(pub.venueShort)}</span>`,
-    `  <div class="pub-body">\n${indent(lines.join('\n'), 4)}\n  </div>`,
-    '</article>',
-  ].join('\n');
+  if (actions.length) lines.push(`<div class="pub-actions">\n${indent(actions.join('\n'), 2)}\n</div>`);
+  return `<article class="pub">\n${indent(lines.join('\n'), 2)}\n</article>`;
 }
 
 function renderPublications(pubs) {
   const sorted = [...pubs].sort((a, b) => Number(b.year) - Number(a.year));
-  const years = [...new Set(sorted.map((p) => String(p.year)))];
-  const out = [sectionOpen('publications', 'Publications')];
-  if (years.length > 1) {
-    years.forEach((y) => {
-      out.push(`  <h3 class="eyebrow year-heading">${esc(y)}</h3>`);
-      out.push(indent(sorted.filter((p) => String(p.year) === y).map(renderPublication).join('\n'), 2));
-    });
-  } else {
-    out.push(indent(sorted.map(renderPublication).join('\n'), 2));
-  }
-  out.push('</section>');
-  return out.join('\n');
+  return section('publications', 'Publications', sorted.map(renderPublication).join('\n'));
 }
 
 function renderProjects(projects) {
   const sorted = [...projects].sort((a, b) => Number(!!b.featured) - Number(!!a.featured));
-  const cards = sorted.map((pr) => {
-    const lines = [`<h3>${esc(pr.title)}</h3>`, `<p>${esc(pr.description)}</p>`];
-    if (has(pr.stack)) lines.push(chipList(pr.stack));
+  const items = sorted.map((pr) => {
+    const lines = [`<h3 class="project-title">${esc(pr.title)}</h3>`, `<p class="project-desc">${esc(pr.description)}</p>`];
+    if (has(pr.stack)) lines.push(inlineList(pr.stack, 'stack'));
     const links = PROJECT_LINKS.filter(([key]) => has(pr.links && pr.links[key])).map(([key, label, ic]) =>
-      link(pr.links[key], `${icon(ic, 16)}<span>${label}</span>`),
+      link(pr.links[key], `${icon(ic, 15)}<span>${label}</span>`),
     );
-    if (links.length) lines.push(`<div class="project-links">\n${indent(links.join('\n'), 2)}\n</div>`);
+    if (links.length) lines.push(`<p class="project-links">${links.join('')}</p>`);
     return `<article class="project">\n${indent(lines.join('\n'), 2)}\n</article>`;
   });
-  return [sectionOpen('projects', 'Projects'), `  <div class="project-grid">\n${indent(cards.join('\n'), 4)}\n  </div>`, '</section>'].join(
-    '\n',
-  );
+  return section('projects', 'Projects', `<div class="project-grid">\n${indent(items.join('\n'), 2)}\n</div>`);
 }
 
-function renderTimelineEntry({ title, org, orgUrl, location, start, end, bullets, stack, links, durationEnabled }, homeLocation) {
-  const range = formatRange(start, end);
-  const when = range ? [`<span class="dates">${esc(range)}</span>`] : [];
-  if (durationEnabled && hasMonth(start) && (!has(end) || hasMonth(end))) {
-    when.push(`<span class="duration" data-start="${start}"${has(end) ? ` data-end="${end}"` : ''}></span>`);
+// Shared by experience, education and awards. `when` overrides the computed date range.
+function renderEntry(e, homeLocation) {
+  const range = has(e.when) ? String(e.when) : formatRange(e.start, e.end);
+  const whenParts = range ? [`<span class="dates">${esc(range)}</span>`] : [];
+  if (e.durationEnabled && hasMonth(e.start) && (!has(e.end) || hasMonth(e.end))) {
+    whenParts.push(`<span class="duration" data-start="${e.start}"${has(e.end) ? ` data-end="${e.end}"` : ''}></span>`);
   }
-  const head = [`<h3>${esc(title)}</h3>`];
-  if (when.length) head.push(`<p class="when">${when.join('')}</p>`);
+  const head = [`<h3 class="entry-title">${esc(e.title)}</h3>`];
+  if (whenParts.length) head.push(`<p class="entry-when">${whenParts.join('')}</p>`);
+  const body = [`<div class="entry-head">\n${indent(head.join('\n'), 2)}\n</div>`];
 
-  const orgLine = [`<span class="org-name">${maybeLink(orgUrl, org)}</span>`];
-  if (has(location) && location !== homeLocation) orgLine.push(`<span class="muted">${esc(location)}</span>`);
-  const body = [`<div class="entry-head">\n${indent(head.join('\n'), 2)}\n</div>`, `<p class="org">${orgLine.join(' · ')}</p>`];
-  if (has(bullets)) body.push(`<ul class="bullets">\n${indent(list(bullets).map((b) => `<li>${esc(b)}</li>`).join('\n'), 2)}\n</ul>`);
-  if (has(stack)) body.push(chipList(stack));
-  const entryLinks = Object.entries(links || {})
+  if (has(e.org)) {
+    const orgLine = [maybeLink(e.orgUrl, e.org)];
+    if (has(e.location) && e.location !== homeLocation) orgLine.push(`<span class="muted">${esc(e.location)}</span>`);
+    body.push(`<p class="entry-org">${orgLine.join(' · ')}</p>`);
+  }
+  if (has(e.description)) body.push(`<p class="entry-desc">${esc(e.description)}</p>`);
+  if (has(e.bullets)) body.push(`<ul class="bullets">\n${indent(list(e.bullets).map((b) => `<li>${esc(b)}</li>`).join('\n'), 2)}\n</ul>`);
+  if (has(e.stack)) body.push(inlineList(e.stack, 'stack'));
+  const entryLinks = Object.entries(e.links || {})
     .filter(([, url]) => has(url))
-    .map(([key, url]) => link(url, `<span>${esc(ENTRY_LINK_LABELS[key] || key)}</span>${icon('external', 14)}`));
+    .map(([key, url]) => link(url, extLabel(esc(ENTRY_LINK_LABELS[key] || key))));
   if (entryLinks.length) body.push(`<p class="entry-links">${entryLinks.join('')}</p>`);
+  if (has(e.images)) {
+    const imgs = list(e.images).map(
+      (img) =>
+        `<a href="${esc(img.src)}"><img src="${esc(img.src)}" alt="${esc(img.alt)}" width="${Number(img.width)}" height="${Number(img.height)}" loading="lazy" decoding="async"></a>`,
+    );
+    body.push(`<div class="award-images">\n${indent(imgs.join('\n'), 2)}\n</div>`);
+  }
 
-  const current = has(start) && !has(end);
+  const current = has(e.start) && !has(e.end) && !has(e.when);
   return `<article class="entry${current ? ' is-current' : ''}">\n${indent(body.join('\n'), 2)}\n</article>`;
 }
 
-function renderTimeline(id, title, entries) {
-  return [sectionOpen(id, title), `  <div class="timeline">\n${indent(entries.join('\n'), 4)}\n  </div>`, '</section>'].join('\n');
-}
-
 function renderExperience(items, homeLocation) {
-  const entries = items.map((e) =>
-    renderTimelineEntry(
-      {
-        title: e.role,
-        org: e.org,
-        orgUrl: e.orgUrl,
-        location: e.location,
-        start: e.start,
-        end: e.end,
-        bullets: e.bullets,
-        stack: e.stack,
-        links: e.links,
-        durationEnabled: true,
-      },
-      homeLocation,
-    ),
-  );
-  return renderTimeline('experience', 'Experience', entries);
+  const entries = items.map((e) => renderEntry({ ...e, title: e.role, durationEnabled: true }, homeLocation));
+  return section('experience', 'Experience', entries.join('\n'));
 }
 
 function renderEducation(items, homeLocation) {
   const entries = items.map((e) =>
-    renderTimelineEntry({ title: e.degree, org: e.school, orgUrl: e.schoolUrl, start: e.start, end: e.end, bullets: e.notes }, homeLocation),
+    renderEntry({ title: e.degree, org: e.school, orgUrl: e.schoolUrl, start: e.start, end: e.end, bullets: e.notes }, homeLocation),
   );
-  return renderTimeline('education', 'Education', entries);
+  return section('education', 'Education', entries.join('\n'));
 }
 
 function renderAwards(items) {
-  const entries = items.map((a) => {
-    const body = [`<div class="entry-head">\n  <h3>${esc(a.title)}</h3>\n  <p class="when">${esc(a.year)}</p>\n</div>`];
-    if (has(a.description)) body.push(`<p class="award-desc">${esc(a.description)}</p>`);
-    if (has(a.images)) {
-      const imgs = list(a.images).map(
-        (img) =>
-          `<a href="${esc(img.src)}"><img src="${esc(img.src)}" alt="${esc(img.alt)}" width="${Number(img.width)}" height="${Number(img.height)}" loading="lazy" decoding="async"></a>`,
-      );
-      body.push(`<div class="award-images">\n${indent(imgs.join('\n'), 2)}\n</div>`);
-    }
-    return `<article class="award">\n${indent(body.join('\n'), 2)}\n</article>`;
-  });
-  return [sectionOpen('awards', 'Awards'), indent(entries.join('\n'), 2), '</section>'].join('\n');
+  const entries = items.map((a) => renderEntry({ title: a.title, when: a.year, description: a.description, images: a.images }));
+  return section('awards', 'Awards', entries.join('\n'));
 }
 
 function renderFooter(data) {
@@ -497,6 +458,7 @@ function main() {
   }
 
   const home = data.profile.location;
+  sectionNo = 0;
   const regions = {
     about: renderAbout(data),
     news: has(data.news) ? renderNews(data.news) : '',
@@ -508,7 +470,7 @@ function main() {
   };
   const present = new Set(Object.keys(regions).filter((k) => regions[k]));
   regions['head-meta'] = renderHeadMeta(data);
-  regions.sidebar = renderSidebar(data);
+  regions.masthead = renderMasthead(data);
   regions.footer = renderFooter(data);
 
   const original = fs.readFileSync(INDEX_PATH, 'utf8');
