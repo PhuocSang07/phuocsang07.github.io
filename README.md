@@ -6,7 +6,7 @@ Personal academic portfolio: LLM research and AI agent engineering. Live at http
 
 ## 🌟 Features
 
-- **Academic single-page layout**: About, Publications, Projects, Experience, Education, Awards
+- **Academic single-page layout**: About, Publications, Projects, Experience, Education, Awards, with a sticky section navigation
 - **Data-driven**: all content lives in `content/site-data.js`; `node build-site.js` renders it into static HTML (plus SEO meta and JSON-LD)
 - **Dark/Light Mode**: theme toggle, remembered in `localStorage['theme']`, defaults to the OS setting
 - **No framework, no JS dependency for content**: plain HTML/CSS and a small enhancement script; prints cleanly as a CV
@@ -18,7 +18,7 @@ Personal academic portfolio: LLM research and AI agent engineering. Live at http
 ├── build-site.js                 # Renders site-data.js into index.html
 ├── index.html                    # Generated regions between <!-- build:* --> markers
 ├── assets/css/portfolio.css
-├── assets/js/portfolio.js        # Theme toggle, role durations, BibTeX copy
+├── assets/js/portfolio.js        # Theme toggle, active nav link, role durations, image lightbox, BibTeX copy
 ├── assets/images/
 ├── favicon.svg, robots.txt, sitemap.xml
 └── .github/workflows/static.yml  # Builds and deploys to GitHub Pages
@@ -36,10 +36,10 @@ To preview locally: `python -m http.server 8000`, then open http://localhost:800
 
 ## 👨‍💻 About Me
 
-- 🌱 Currently learning Computer Science at Ton Duc Thang University
-- 🔬 AI Research Assistant interested in Machine Learning and Deep Learning
-- 💼 Intern with less than 1 year of experience
-- 🎓 English Proficiency: Aptis Level B2
+- 💼 AI Agent Developer at CodePresso
+- 🎓 M.Sc. student in Computer Science at Ton Duc Thang University
+- 🔬 Research interests: LLM distillation, reasoning in small language models, foundation models, transfer learning
+- 🌐 Languages: Vietnamese (native), English (B2)
 
 # 📫 How to reach me: 
 [![Linkedin](https://i.stack.imgur.com/gVE0j.png) LinkedIn](https://www.linkedin.com/in/phuocsang2412/)

@@ -10,6 +10,11 @@
  *   as-is, so keep them to simple inline markup (<a>, <em>, <strong>).
  * - Dates use "YYYY-MM" (or "YYYY" when the month is unknown). Omit `end` for
  *   an ongoing role.
+ * - A project may carry `image: { src, alt, width, height }` (screenshot or diagram) and
+ *   `featured: true`. The first featured project is laid out across the full row.
+ * - Publications take an optional `summary` (one or two sentences, always visible) and
+ *   `highlights` (key results). Projects take optional `highlights` too. Only state what
+ *   the paper, repository or model card actually says.
  * - Empty strings / empty arrays are skipped: a section with no entries is not
  *   rendered. Never put placeholder text here.
  */
@@ -28,15 +33,16 @@ module.exports = {
     location: 'Ho Chi Minh City, Vietnam',
     initials: 'PS', // monogram in the top-left corner and favicon
     bioHtml: [
-      '<p>I am an AI engineer and researcher working on large language models and the agents built on them. I design agent systems at <strong>CodePresso</strong> and am pursuing an <strong>M.Sc. in Computer Science</strong> at Ton Duc Thang University.</p>',
-      '<p>My research focuses on <strong>knowledge distillation for LLMs</strong>, <strong>reasoning optimisation for small language models</strong>, <strong>foundation models</strong> and <strong>transfer learning</strong>. Earlier, I worked on retrieval-augmented generation for Vietnamese legal documents, parameter-efficient fine-tuning for domain-specific question answering, and persona-driven synthetic data for depression screening (SOICT 2025).</p>',
-      '<p>At CodePresso, I build AI agents that automate workflows in education and take them from prototype to production, with a close eye on performance and operating cost. I also coach Ton Duc Thang University&rsquo;s teams for the Vietnam Student AI Olympiad.</p>',
+      '<p>I build and study systems based on large language models: AI agents that run in production at <strong>CodePresso</strong>, and research on making <strong>small language models</strong> more capable through <strong>knowledge distillation</strong>.</p>',
+      '<p>My research covers knowledge distillation for LLMs, reasoning optimisation for small language models, foundation models and transfer learning. My latest paper, accepted at <strong>KSE 2026</strong>, uses distillation to make Vietnamese language models decline questions about specific entities without collecting newly labelled refusals. Earlier work includes retrieval-augmented generation for Vietnamese legal documents, parameter-efficient fine-tuning for domain-specific question answering, and persona-driven synthetic data for depression screening (<strong>SOICT 2025</strong>).</p>',
+      '<p>At CodePresso, I design AI agents that automate workflows in education and take them from prototype to production on AWS, with a close eye on performance and operating cost.</p>',
+      '<p>I am pursuing an M.Sc. in Computer Science at Ton Duc Thang University, where I also coach the university&rsquo;s teams for the Vietnam Student AI Olympiad. My own team won 2nd Prize at the 2025 national finals.</p>',
     ],
     interests: ['LLM Distillation', 'Reasoning in Small Language Models', 'Foundation Models', 'Transfer Learning'],
     stack: ['Python', 'PyTorch', 'Hugging Face', 'LangChain', 'AWS (S3, Lambda, ECS)', 'Docker', 'PostgreSQL', 'Qdrant', 'LoRA / PEFT'],
     languages: 'Vietnamese (native) · English (B2)',
-    // TODO(owner): square portrait >= 400px, e.g. 'assets/images/profile.jpg'. Empty = no photo.
-    photo: '',
+    // 4:5 portrait, ideally a cut-out with a transparent background. Empty `src` = no photo.
+    photo: { src: 'assets/images/profile.webp', width: 560, height: 700 },
     email: 'transhack09@gmail.com',
     links: {
       scholar: '', // TODO(owner): Google Scholar profile URL
@@ -67,6 +73,14 @@ module.exports = {
       venue: '18th International Conference on Knowledge and Systems Engineering (KSE), Kanazawa, Japan',
       year: 2026,
       note: 'Accepted, to appear',
+      summary:
+        'A label-free way to make a language model decline questions about a chosen set of entities while keeping its other capabilities: a frozen teacher that is prompted to refuse supplies the training signal for the student.',
+      highlights: [
+        'Forget refusal reaches 61% on Qwen3-4B and 72% on Qwen3-8B across three seeds, with VMLU within 3.0 points and perplexity within 0.3 of the original model.',
+        'Two implementation choices decide whether the method works at all: leaving the reply wording unconstrained and delivering the prefix through the chat system role.',
+        'Introduces a Vietnamese entity-conditioned refusal benchmark built from UIT-ViQuAD 2.0.',
+        'Reports the limits as well: the suppression is behavioural, and a few relearning steps remove it.',
+      ],
       // TODO(owner): add `url` (publisher page) and `doi` once the proceedings are out
       links: { url: '', pdf: 'https://drive.google.com/file/d/1K4s_01s2NAkXeZuQk_ikieH62jRrXAi6/view', arxiv: '', code: '', slides: '' },
       doi: '',
@@ -81,9 +95,17 @@ module.exports = {
       venue: 'Springer CCIS · 14th International Symposium on Information and Communication Technology (SOICT), Nha Trang, Vietnam',
       year: 2025,
       note: '',
+      summary:
+        'A three-stage pipeline in which an LLM, guided by the PHQ-8 clinical scale and diverse user personas, generates realistic narrative synopses of clinical interviews, giving depression-screening models more and better-balanced training data.',
+      highlights: [
+        'A model trained on the combined synthetic and real data reaches an F1-score of 0.84 on the DAIC test set, approaching models trained on real data.',
+        'Embedding-space analysis shows the synthetic data closely mirrors the semantic features and label distribution of real data, which mitigates label imbalance.',
+        'Contributes a validated generation framework and a dataset released to the research community.',
+      ],
       links: { url: 'https://link.springer.com/chapter/10.1007/978-981-92-2584-2_47', pdf: '', arxiv: '', code: '', slides: '' },
       doi: '10.1007/978-981-92-2584-2_47',
-      abstract: '', // TODO(owner): paste the abstract from the Springer page
+      abstract:
+        'Data scarcity and privacy concerns are significant barriers to developing machine learning models for depression screening. This research introduces and validates a novel framework for generating high-quality synthetic data to address this challenge. The core of the methodology is a three-stage pipeline where a Large Language Model (LLM), guided by clinical scales (PHQ-8) and diverse user personas, generates realistic narrative synopses from clinical interviews. Empirical validation demonstrates the framework’s efficacy: a model trained on our combined synthetic and real data achieved a high F1-score of 0.84 on the DAIC test set, indicating a more stable and reliable training process compared to prior methods while approaching the performance of models trained on real data. Further analysis, including embedding space visualization, confirms that our synthetic data closely mirrors the semantic features and label distribution of real-world data, thereby mitigating the risks of label imbalance and enhancing model generalization. This study contributes (1) a validated framework for synthetic data generation and (2) a high-quality dataset released to the research community. Our work lays the groundwork for developing more robust and equitable AI-driven tools for mental health screening, underscoring that the quality of synthetic data is paramount for building reliable applications.',
       bibtex: '', // TODO(owner): paste "Cite this paper" BibTeX from the Springer page
     },
   ],
@@ -93,7 +115,13 @@ module.exports = {
       title: 'Legal Chatbot with Advanced RAG',
       description:
         'Legal question-answering system for Vietnamese law built on retrieval-augmented generation, with hierarchical document retrieval and a Streamlit interface.',
-      stack: ['Python', 'LangChain', 'Qdrant', 'PostgreSQL', 'Streamlit'],
+      highlights: [
+        'Parent–child retrieval over legal documents stored in PostgreSQL, so an answer keeps the context of the passage it came from.',
+        'Semantic routing sends each query to the processing pipeline that fits it.',
+        'A grading step scores retrieved documents for relevance before the answer is generated.',
+        'The whole pipeline, from ingestion to response generation, is orchestrated with LangGraph and backed by a result cache.',
+      ],
+      stack: ['Python', 'LangChain', 'LangGraph', 'Qdrant', 'PostgreSQL', 'Streamlit'],
       links: { code: 'https://github.com/PhuocSang07/legal-chatbot' },
       featured: true,
     },
@@ -101,15 +129,29 @@ module.exports = {
       title: 'Qwen2.5-3B Fine-tuned for Vietnamese Law',
       description:
         'Fine-tuned Qwen2.5-3B on a Vietnamese legal corpus and QA dataset for a legal chatbot, using Unsloth with LoRA.',
+      highlights: [
+        'Two stages: the base model is first adapted to a Vietnamese legal corpus, then fine-tuned on question–answer pairs.',
+        'Question–answer data comes from hoidap-tvpl-20k, a Vietnamese legal QA dataset I published on Hugging Face.',
+        'LoRA adapter of rank 128 with rank-stabilised scaling on every attention and MLP projection; the embeddings and output head are trained as well.',
+        'Released as a PEFT adapter under the MIT licence.',
+      ],
       stack: ['Python', 'PyTorch', 'Hugging Face', 'Unsloth', 'LoRA'],
-      links: { model: 'https://huggingface.co/phuocsang/qwen2.5-3B-Finetune-Vietnamese-Law' },
+      links: {
+        model: 'https://huggingface.co/phuocsang/qwen2.5-3B-Finetune-Vietnamese-Law',
+        dataset: 'https://huggingface.co/datasets/phuocsang/hoidap-tvpl-20k',
+      },
       featured: true,
     },
     {
       title: 'Vistral-7B Fine-tuned for a Travel Chatbot',
       description:
         'Loaded Viet-Mistral-7B-Chat in 4-bit precision and fine-tuned it with LoRA on a Vietnamese travel QA dataset generated by Gemini 1.5 Pro.',
-      stack: ['Python', 'PyTorch', 'Hugging Face', 'PEFT', 'LoRA'],
+      highlights: [
+        'Dataset of 4,500 Vietnamese question–answer pairs on destinations, travel costs, local food, culture and festivals.',
+        '4-bit NF4 quantisation keeps the 7B model within the memory of two T4 GPUs during training.',
+        'Three epochs of supervised fine-tuning with LoRA; training loss ends at 0.56.',
+      ],
+      stack: ['Python', 'PyTorch', 'Hugging Face', 'PEFT', 'LoRA', 'bitsandbytes'],
       links: { code: 'https://github.com/PhuocSang07/FineTuning-Vistral7B-q4-travel-dataset' },
     },
   ],
@@ -163,6 +205,8 @@ module.exports = {
       school: 'Ton Duc Thang University',
       schoolUrl: 'https://www.tdtu.edu.vn/',
       start: '2025',
+      end: '2027',
+      endExpected: true, // still in progress: shown as "2025 – 2027 (expected)"
       notes: [],
     },
     {
@@ -197,8 +241,17 @@ module.exports = {
     },
     {
       year: 2025,
-      title: 'Top 2 — Olympic AI Ho Chi Minh City 2025',
-      description: 'Held at HUTECH University.',
+      title: '2nd Prize — Olympic AI Ho Chi Minh City 2025 (OAI HCMC 2025)',
+      description:
+        'Team award from the Ho Chi Minh City Computer Association (HCA). The competition was held at Ho Chi Minh City University of Technology (HUTECH).',
+      images: [
+        {
+          src: 'assets/images/awards/oai-hcmc-2025-certificate.jpg',
+          alt: 'Certificate of merit for 2nd Prize, Olympic AI Ho Chi Minh City 2025, from the Ho Chi Minh City Computer Association',
+          width: 1572,
+          height: 1083,
+        },
+      ],
     },
   ],
 };

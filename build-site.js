@@ -31,9 +31,21 @@ const PUB_LINKS = [['url', 'Paper'], ['pdf', 'PDF'], ['arxiv', 'arXiv'], ['code'
 const PROJECT_LINKS = [
   ['code', 'Code', 'github'],
   ['model', 'Model', 'huggingface'],
+  ['dataset', 'Dataset', 'file'],
   ['demo', 'Demo', 'external'],
   ['paper', 'Paper', 'file'],
 ];
+// [region / section id, title]. Page order; also drives the top navigation.
+const SECTIONS = [
+  ['about', 'About'],
+  ['news', 'News'],
+  ['publications', 'Publications'],
+  ['projects', 'Projects'],
+  ['experience', 'Experience'],
+  ['education', 'Education'],
+  ['awards', 'Awards'],
+];
+const SECTION_TITLES = Object.fromEntries(SECTIONS);
 const AFFILIATION_ICONS = { work: 'briefcase', study: 'cap', lab: 'flask' };
 const ENTRY_LINK_LABELS = { results: 'Official results', website: 'Website' };
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -101,6 +113,10 @@ function maybeLink(url, text) {
 function inlineList(items, cls = '') {
   const lis = list(items).map((t) => `<li>${esc(t)}</li>`);
   return `<ul class="inline-list${cls ? ` ${cls}` : ''}">${lis.join('')}</ul>`;
+}
+
+function bulletList(items) {
+  return `<ul class="bullets">\n${indent(list(items).map((b) => `<li>${esc(b)}</li>`).join('\n'), 2)}\n</ul>`;
 }
 
 // "YYYY-MM" -> "Jun 2025"; "YYYY" -> "2025".
@@ -185,6 +201,10 @@ function validate(data) {
     ['year', 'title'].forEach((f) => need(a, f, w));
     list(a.images).forEach((img, j) => ['src', 'alt', 'width', 'height'].forEach((f) => need(img, f, `${w}.images[${j}]`)));
   });
+  list(data.projects).forEach((pr, i) => {
+    if (pr.image && has(pr.image.src)) ['alt', 'width', 'height'].forEach((f) => need(pr.image, f, `projects[${i}].image`));
+  });
+  if (p && p.photo && has(p.photo.src)) ['width', 'height'].forEach((f) => need(p.photo, f, 'profile.photo'));
 
   return errors;
 }
@@ -194,7 +214,10 @@ function validate(data) {
 // Sections are numbered in page order; main() renders them top to bottom.
 let sectionNo = 0;
 
-function section(id, title, bodyHtml) {
+const photoOf = (p) => (p.photo && has(p.photo.src) ? p.photo : null);
+
+function section(id, bodyHtml) {
+  const title = SECTION_TITLES[id];
   sectionNo += 1;
   const no = String(sectionNo).padStart(2, '0');
   return [
@@ -237,7 +260,7 @@ function renderHeadMeta(data) {
     jobTitle: p.headline,
   };
   if (has(p.nameNative)) person.alternateName = p.nameNative;
-  if (has(p.photo)) person.image = abs(p.photo);
+  if (photoOf(p)) person.image = abs(photoOf(p).src);
   if (has(p.location)) person.homeLocation = { '@type': 'Place', name: p.location };
   const sameAs = PROFILE_LINKS.map(([k]) => links[k]).filter(has);
   if (sameAs.length) person.sameAs = sameAs;
@@ -284,17 +307,31 @@ function renderMasthead(data) {
   if (has(links.cv)) contact.push(`<li>${link(links.cv, `${icon('file')}<span>CV</span>`, 'is-primary')}</li>`);
   ident.push(`<ul class="masthead-links">\n${indent(contact.join('\n'), 2)}\n</ul>`);
 
+  const photo = photoOf(p);
   const out = [
-    '<div class="topbar">',
-    `  <a class="monogram" href="#top" aria-label="${esc(p.name)}, back to top">${esc(initialsOf(p))}</a>`,
-    `  <button type="button" class="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false">${icon('moon', 18, 'icon-moon')}${icon('sun', 18, 'icon-sun')}</button>`,
-    '</div>',
-    `<div class="masthead-body${has(p.photo) ? ' has-photo' : ''}">`,
+    `<div class="masthead-body${photo ? ' has-photo' : ''}">`,
     `  <div class="masthead-text">\n${indent(ident.join('\n'), 4)}\n  </div>`,
   ];
-  if (has(p.photo)) out.push(`  <img class="portrait" src="${esc(p.photo)}" alt="Portrait of ${esc(p.name)}" width="400" height="400">`);
+  if (photo) {
+    out.push(
+      `  <img class="portrait" src="${esc(photo.src)}" alt="Portrait of ${esc(p.name)}" width="${Number(photo.width)}" height="${Number(photo.height)}">`,
+    );
+  }
   out.push('</div>');
   return out.join('\n');
+}
+
+// Sticky bar: monogram, one link per rendered section, theme toggle.
+function renderTopbar(data, sectionIds) {
+  const p = data.profile;
+  const navLinks = sectionIds.map((id) => `<li><a href="#${id}">${SECTION_TITLES[id]}</a></li>`);
+  return [
+    '<div class="topbar">',
+    `  <a class="monogram" href="#top" aria-label="${esc(p.name)}, back to top">${esc(initialsOf(p))}</a>`,
+    `  <nav class="site-nav" aria-label="Sections">\n    <ul>\n${indent(navLinks.join('\n'), 6)}\n    </ul>\n  </nav>`,
+    `  <button type="button" class="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false">${icon('moon', 18, 'icon-moon')}${icon('sun', 18, 'icon-sun')}</button>`,
+    '</div>',
+  ].join('\n');
 }
 
 function renderAbout(data) {
@@ -308,7 +345,7 @@ function renderAbout(data) {
     const rows = facts.map(([k, v]) => `<div>\n  <dt>${k}</dt>\n  <dd>${v}</dd>\n</div>`);
     body.push(`<dl class="facts">\n${indent(rows.join('\n'), 2)}\n</dl>`);
   }
-  return section('about', 'About', body.join('\n'));
+  return section('about', body.join('\n'));
 }
 
 function renderNewsItem(n) {
@@ -322,7 +359,7 @@ function renderNews(items) {
   if (older.length) {
     body.push(`<details class="more">\n  <summary>Older news</summary>\n  <ul class="news">\n${indent(older.join('\n'), 4)}\n  </ul>\n</details>`);
   }
-  return section('news', 'News', body.join('\n'));
+  return section('news', body.join('\n'));
 }
 
 const extLabel = (label) => `<span>${label}</span>${icon('external', 13)}`;
@@ -332,11 +369,15 @@ function renderPublication(pub) {
   const titleUrl = pub.links && (pub.links.url || pub.links.arxiv || pub.links.pdf);
   const venue = has(pub.venue) ? pub.venue : pub.venueShort;
   const lines = [
-    `<p class="pub-tag">${esc(pub.venueShort)}</p>`,
-    `<h3 class="pub-title">${has(titleUrl) ? link(titleUrl, esc(pub.title)) : esc(pub.title)}</h3>`,
+    '<div class="pub-head">',
+    `  <p class="pub-tag">${esc(pub.venueShort)}</p>`,
+    `  <h3 class="pub-title">${has(titleUrl) ? link(titleUrl, esc(pub.title)) : esc(pub.title)}</h3>`,
+    '</div>',
     `<p class="pub-authors">${authors}</p>`,
     `<p class="pub-venue">${esc(venue)}, ${esc(pub.year)}${has(pub.note) ? ` · <span class="pub-note">${esc(pub.note)}</span>` : ''}</p>`,
   ];
+  if (has(pub.summary)) lines.push(`<p class="pub-summary">${esc(pub.summary)}</p>`);
+  if (has(pub.highlights)) lines.push(bulletList(pub.highlights));
   const actions = PUB_LINKS.filter(([key]) => has(pub.links && pub.links[key])).map(([key, label]) =>
     link(pub.links[key], extLabel(label), 'tag-link'),
   );
@@ -355,21 +396,32 @@ function renderPublication(pub) {
 
 function renderPublications(pubs) {
   const sorted = [...pubs].sort((a, b) => Number(b.year) - Number(a.year));
-  return section('publications', 'Publications', sorted.map(renderPublication).join('\n'));
+  return section('publications', sorted.map(renderPublication).join('\n'));
 }
 
 function renderProjects(projects) {
   const sorted = [...projects].sort((a, b) => Number(!!b.featured) - Number(!!a.featured));
-  const items = sorted.map((pr) => {
-    const lines = [`<h3 class="project-title">${esc(pr.title)}</h3>`, `<p class="project-desc">${esc(pr.description)}</p>`];
+  const items = sorted.map((pr, i) => {
+    const lines = [];
+    if (pr.featured) lines.push('<p class="project-flag">Featured</p>');
+    lines.push(`<h3 class="project-title">${esc(pr.title)}</h3>`, `<p class="project-desc">${esc(pr.description)}</p>`);
+    if (has(pr.highlights)) lines.push(bulletList(pr.highlights));
     if (has(pr.stack)) lines.push(inlineList(pr.stack, 'stack'));
     const links = PROJECT_LINKS.filter(([key]) => has(pr.links && pr.links[key])).map(([key, label, ic]) =>
       link(pr.links[key], `${icon(ic, 15)}<span>${label}</span>`),
     );
     if (links.length) lines.push(`<p class="project-links">${links.join('')}</p>`);
-    return `<article class="project">\n${indent(lines.join('\n'), 2)}\n</article>`;
+    const parts = [`<div class="project-text">\n${indent(lines.join('\n'), 2)}\n</div>`];
+    const img = pr.image;
+    if (img && has(img.src)) {
+      parts.unshift(
+        `<img class="project-image" src="${esc(img.src)}" alt="${esc(img.alt)}" width="${Number(img.width)}" height="${Number(img.height)}" loading="lazy" decoding="async">`,
+      );
+    }
+    const lead = i === 0 && pr.featured && sorted.length > 2;
+    return `<article class="project${lead ? ' is-lead' : ''}">\n${indent(parts.join('\n'), 2)}\n</article>`;
   });
-  return section('projects', 'Projects', `<div class="project-grid">\n${indent(items.join('\n'), 2)}\n</div>`);
+  return section('projects', `<div class="project-grid">\n${indent(items.join('\n'), 2)}\n</div>`);
 }
 
 // Shared by experience, education and awards. `when` overrides the computed date range.
@@ -389,7 +441,7 @@ function renderEntry(e, homeLocation) {
     body.push(`<p class="entry-org">${orgLine.join(' · ')}</p>`);
   }
   if (has(e.description)) body.push(`<p class="entry-desc">${esc(e.description)}</p>`);
-  if (has(e.bullets)) body.push(`<ul class="bullets">\n${indent(list(e.bullets).map((b) => `<li>${esc(b)}</li>`).join('\n'), 2)}\n</ul>`);
+  if (has(e.bullets)) body.push(bulletList(e.bullets));
   if (has(e.stack)) body.push(inlineList(e.stack, 'stack'));
   const entryLinks = Object.entries(e.links || {})
     .filter(([, url]) => has(url))
@@ -403,25 +455,30 @@ function renderEntry(e, homeLocation) {
     body.push(`<div class="award-images">\n${indent(imgs.join('\n'), 2)}\n</div>`);
   }
 
-  const current = has(e.start) && !has(e.end) && !has(e.when);
+  const current = e.current !== undefined ? e.current : has(e.start) && !has(e.end) && !has(e.when);
   return `<article class="entry${current ? ' is-current' : ''}">\n${indent(body.join('\n'), 2)}\n</article>`;
 }
 
 function renderExperience(items, homeLocation) {
   const entries = items.map((e) => renderEntry({ ...e, title: e.role, durationEnabled: true }, homeLocation));
-  return section('experience', 'Experience', entries.join('\n'));
+  return section('experience', entries.join('\n'));
 }
 
 function renderEducation(items, homeLocation) {
-  const entries = items.map((e) =>
-    renderEntry({ title: e.degree, org: e.school, orgUrl: e.schoolUrl, start: e.start, end: e.end, bullets: e.notes }, homeLocation),
-  );
-  return section('education', 'Education', entries.join('\n'));
+  const entries = items.map((e) => {
+    const entry = { title: e.degree, org: e.school, orgUrl: e.schoolUrl, start: e.start, end: e.end, bullets: e.notes };
+    if (e.endExpected && has(e.end)) {
+      entry.when = `${formatRange(e.start, e.end)} (expected)`;
+      entry.current = true;
+    }
+    return renderEntry(entry, homeLocation);
+  });
+  return section('education', entries.join('\n'));
 }
 
 function renderAwards(items) {
   const entries = items.map((a) => renderEntry({ title: a.title, when: a.year, description: a.description, images: a.images }));
-  return section('awards', 'Awards', entries.join('\n'));
+  return section('awards', entries.join('\n'));
 }
 
 function renderFooter(data) {
@@ -468,8 +525,9 @@ function main() {
     education: has(data.education) ? renderEducation(data.education, home) : '',
     awards: has(data.awards) ? renderAwards(data.awards) : '',
   };
-  const present = new Set(Object.keys(regions).filter((k) => regions[k]));
+  const present = SECTIONS.map(([id]) => id).filter((id) => regions[id]);
   regions['head-meta'] = renderHeadMeta(data);
+  regions.topbar = renderTopbar(data, present);
   regions.masthead = renderMasthead(data);
   regions.footer = renderFooter(data);
 
@@ -483,7 +541,7 @@ function main() {
     console.log('index.html is up to date.');
   } else {
     fs.writeFileSync(INDEX_PATH, html);
-    console.log(`index.html rebuilt (${[...present].join(', ')}).`);
+    console.log(`index.html rebuilt (${present.join(', ')}).`);
   }
 }
 
