@@ -19,16 +19,6 @@ const DATA_PATH = path.join(ROOT, 'content', 'site-data.js');
 const INDEX_PATH = path.join(ROOT, 'index.html');
 const NEWS_VISIBLE = 5;
 
-const SECTIONS = [
-  { id: 'about', label: 'About' },
-  { id: 'news', label: 'News' },
-  { id: 'publications', label: 'Publications' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'experience', label: 'Experience' },
-  { id: 'education', label: 'Education' },
-  { id: 'awards', label: 'Awards' },
-];
-
 // [links key, label, icon]
 const PROFILE_LINKS = [
   ['scholar', 'Google Scholar', 'scholar'],
@@ -44,11 +34,39 @@ const PROJECT_LINKS = [
   ['demo', 'Demo', 'external'],
   ['paper', 'Paper', 'file'],
 ];
-const AFFILIATION_ICONS = { work: 'briefcase', lab: 'flask' };
+const AFFILIATION_ICONS = { work: 'briefcase', study: 'cap', lab: 'flask' };
+const ENTRY_LINK_LABELS = { results: 'Official results', website: 'Website' };
+const SECTION_ICONS = {
+  about: 'user',
+  news: 'news',
+  publications: 'book',
+  projects: 'code',
+  experience: 'briefcase',
+  education: 'cap',
+  awards: 'trophy',
+};
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-// Inline SVG icons. Stroke icons follow Lucide (ISC); brand marks follow Simple Icons (CC0).
+// Inline SVG icons, one stroke family (Lucide, ISC licence) so every glyph matches.
 const ICONS = {
+  user: { body: '<circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/>' },
+  news: {
+    body: '<path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/>',
+  },
+  book: {
+    body: '<path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/>',
+  },
+  code: { body: '<path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/>' },
+  cap: {
+    body: '<path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/>',
+  },
+  trophy: {
+    body: '<path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>',
+  },
+  smile: {
+    body: '<circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01"/><path d="M15 9h.01"/>',
+  },
+  id: { body: '<rect width="18" height="18" x="3" y="3" rx="2"/><path d="M8 8v8"/><path d="M12 8h1.5a4 4 0 0 1 0 8H12z"/>' },
   mail: { body: '<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>' },
   pin: { body: '<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>' },
   briefcase: { body: '<rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>' },
@@ -60,22 +78,15 @@ const ICONS = {
   },
   external: { body: '<path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>' },
   github: {
-    fill: true,
-    body: '<path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>',
+    body: '<path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/>',
   },
   linkedin: {
-    fill: true,
-    body: '<path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.125 2.062 2.062 0 0 1 0 4.125zM7.119 20.452H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>',
-  },
-  scholar: {
-    fill: true,
-    body: '<path d="M5.242 13.769 0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.748-6.758 4.269zM12 10a7 7 0 1 0 0 14 7 7 0 0 0 0-14z"/>',
-  },
-  orcid: {
-    fill: true,
-    body: '<path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zM7.369 4.378c.525 0 .947.431.947.947s-.422.947-.947.947a.95.95 0 0 1-.947-.947c0-.525.422-.947.947-.947zm-.722 3.038h1.444v10.041H6.647V7.416zm3.562 0h3.9c3.712 0 5.344 2.653 5.344 5.025 0 2.578-2.016 5.025-5.325 5.025h-3.919V7.416zm1.444 1.303v7.444h2.297c3.272 0 4.022-2.484 4.022-3.722 0-2.016-1.284-3.722-4.097-3.722h-2.222z"/>',
+    body: '<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>',
   },
 };
+ICONS.scholar = ICONS.cap;
+ICONS.orcid = ICONS.id;
+ICONS.huggingface = ICONS.smile;
 
 // ---------- helpers ----------
 
@@ -89,15 +100,7 @@ const list = (value) => (Array.isArray(value) ? value : []);
 const isExternal = (url) => /^(https?:)?\/\//.test(url);
 
 function icon(name, size = 18) {
-  if (name === 'huggingface') {
-    // The Hugging Face mark is an emoji; render it at icon size.
-    return `<span class="icon icon-emoji" style="font-size:${size - 2}px" aria-hidden="true">🤗</span>`;
-  }
-  const def = ICONS[name];
-  const paint = def.fill
-    ? 'fill="currentColor"'
-    : 'fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"';
-  return `<svg class="icon" viewBox="0 0 24 24" width="${size}" height="${size}" ${paint} aria-hidden="true">${def.body}</svg>`;
+  return `<svg class="icon" viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name].body}</svg>`;
 }
 
 function link(url, text, cls) {
@@ -115,10 +118,13 @@ function chipList(items, cls = '') {
   return `<ul class="chip-list">${chips.join('')}</ul>`;
 }
 
+// "YYYY-MM" -> "Jun 2025"; "YYYY" -> "2025".
 function formatMonth(ym) {
-  const [y, m] = ym.split('-').map(Number);
-  return `${MONTHS[m - 1]} ${y}`;
+  const [y, m] = String(ym).split('-').map(Number);
+  return m ? `${MONTHS[m - 1]} ${y}` : String(y);
 }
+
+const hasMonth = (ym) => /^\d{4}-\d{2}$/.test(String(ym));
 
 function formatRange(start, end) {
   if (!has(start)) return has(end) ? formatMonth(end) : '';
@@ -144,12 +150,12 @@ function initialsOf(p) {
 
 function validate(data) {
   const errors = [];
-  const ym = /^\d{4}-(0[1-9]|1[0-2])$/;
+  const ym = /^\d{4}(-(0[1-9]|1[0-2]))?$/;
   const need = (obj, field, where) => {
     if (!obj || !has(obj[field])) errors.push(`${where}.${field} is required`);
   };
   const month = (obj, field, where) => {
-    if (has(obj[field]) && !ym.test(obj[field])) errors.push(`${where}.${field} must be "YYYY-MM" (got "${obj[field]}")`);
+    if (has(obj[field]) && !ym.test(obj[field])) errors.push(`${where}.${field} must be "YYYY-MM" or "YYYY" (got "${obj[field]}")`);
   };
 
   const p = data.profile;
@@ -160,7 +166,7 @@ function validate(data) {
     list(p.affiliations).forEach((a, i) => {
       const w = `profile.affiliations[${i}]`;
       need(a, 'label', w);
-      if (!AFFILIATION_ICONS[a && a.kind]) errors.push(`${w}.kind must be "work" or "lab"`);
+      if (!AFFILIATION_ICONS[a && a.kind]) errors.push(`${w}.kind must be one of: ${Object.keys(AFFILIATION_ICONS).join(', ')}`);
     });
   }
 
@@ -201,7 +207,7 @@ function validate(data) {
 // ---------- renderers ----------
 
 function sectionOpen(id, title) {
-  return `<section id="${id}" class="section" aria-labelledby="${id}-title">\n  <h2 id="${id}-title">${title}</h2>`;
+  return `<section id="${id}" class="section" aria-labelledby="${id}-title">\n  <h2 id="${id}-title"><span class="section-icon">${icon(SECTION_ICONS[id], 16)}</span>${title}</h2>`;
 }
 
 function renderHeadMeta(data) {
@@ -243,7 +249,7 @@ function renderHeadMeta(data) {
   if (has(p.interests)) person.knowsAbout = p.interests;
   const current = list(data.experience).find((e) => !has(e.end));
   if (current) person.worksFor = { '@type': 'Organization', name: current.org };
-  const schools = list(data.education).map((e) => ({ '@type': 'CollegeOrUniversity', name: e.school }));
+  const schools = [...new Set(list(data.education).map((e) => e.school))].map((name) => ({ '@type': 'CollegeOrUniversity', name }));
   if (schools.length) person.alumniOf = schools;
 
   const articles = list(data.publications).map((pub) => {
@@ -263,19 +269,6 @@ function renderHeadMeta(data) {
   const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': [person, ...articles] }, null, 2).replace(/</g, '\\u003c');
   lines.push(`<script type="application/ld+json">\n${jsonLd}\n</script>`);
   return lines.join('\n');
-}
-
-function renderNav(data, present) {
-  const p = data.profile;
-  const items = SECTIONS.filter((s) => present.has(s.id)).map((s) => `<li><a href="#${s.id}">${s.label}</a></li>`);
-  return [
-    `<a class="brand" href="#top">${esc(p.name)}</a>`,
-    '<nav class="site-nav" aria-label="Primary">',
-    '  <ul>',
-    indent(items.join('\n'), 4),
-    '  </ul>',
-    '</nav>',
-  ].join('\n');
 }
 
 function renderSidebar(data) {
@@ -346,6 +339,7 @@ function renderPublication(pub) {
     `<p class="pub-venue"><em>${venueLine}</em>${has(pub.note) ? ` · <span class="pub-note">${esc(pub.note)}</span>` : ''}</p>`,
   ];
   const buttons = PUB_LINKS.filter(([key]) => has(pub.links && pub.links[key])).map(([key, label]) => link(pub.links[key], label, 'btn-link'));
+  if (has(pub.doi)) buttons.push(link(`https://doi.org/${pub.doi}`, 'DOI', 'btn-link'));
   const details = [];
   if (has(pub.abstract)) {
     details.push(`<details class="pub-extra">\n  <summary>Abstract</summary>\n  <p>${esc(pub.abstract)}</p>\n</details>`);
@@ -398,10 +392,10 @@ function renderProjects(projects) {
   );
 }
 
-function renderTimelineEntry({ title, org, orgUrl, location, start, end, bullets, stack, durationEnabled }, homeLocation) {
+function renderTimelineEntry({ title, org, orgUrl, location, start, end, bullets, stack, links, durationEnabled }, homeLocation) {
   const range = formatRange(start, end);
   const when = range ? [`<span class="dates">${esc(range)}</span>`] : [];
-  if (durationEnabled && has(start)) {
+  if (durationEnabled && hasMonth(start) && (!has(end) || hasMonth(end))) {
     when.push(`<span class="duration" data-start="${start}"${has(end) ? ` data-end="${end}"` : ''}></span>`);
   }
   const head = [`<h3>${esc(title)}</h3>`];
@@ -412,6 +406,10 @@ function renderTimelineEntry({ title, org, orgUrl, location, start, end, bullets
   const body = [`<div class="entry-head">\n${indent(head.join('\n'), 2)}\n</div>`, `<p class="org">${orgLine.join(' · ')}</p>`];
   if (has(bullets)) body.push(`<ul class="bullets">\n${indent(list(bullets).map((b) => `<li>${esc(b)}</li>`).join('\n'), 2)}\n</ul>`);
   if (has(stack)) body.push(chipList(stack));
+  const entryLinks = Object.entries(links || {})
+    .filter(([, url]) => has(url))
+    .map(([key, url]) => link(url, `<span>${esc(ENTRY_LINK_LABELS[key] || key)}</span>${icon('external', 14)}`));
+  if (entryLinks.length) body.push(`<p class="entry-links">${entryLinks.join('')}</p>`);
 
   const current = has(start) && !has(end);
   return `<article class="entry${current ? ' is-current' : ''}">\n${indent(body.join('\n'), 2)}\n</article>`;
@@ -433,6 +431,7 @@ function renderExperience(items, homeLocation) {
         end: e.end,
         bullets: e.bullets,
         stack: e.stack,
+        links: e.links,
         durationEnabled: true,
       },
       homeLocation,
@@ -469,10 +468,8 @@ function renderFooter(data) {
   const today = new Date().toISOString().slice(0, 10);
   return [
     '<footer class="site-footer">',
-    '  <div class="container">',
-    `    <p>© ${new Date().getFullYear()} ${esc(p.name)} · ${link(`mailto:${p.email}`, esc(p.email))}</p>`,
-    `    <p class="muted">Last updated <time datetime="${today}">${today}</time></p>`,
-    '  </div>',
+    `  <p>© ${new Date().getFullYear()} ${esc(p.name)} · ${link(`mailto:${p.email}`, esc(p.email))}</p>`,
+    `  <p>Last updated <time datetime="${today}">${today}</time></p>`,
     '</footer>',
   ].join('\n');
 }
@@ -511,7 +508,6 @@ function main() {
   };
   const present = new Set(Object.keys(regions).filter((k) => regions[k]));
   regions['head-meta'] = renderHeadMeta(data);
-  regions.nav = renderNav(data, present);
   regions.sidebar = renderSidebar(data);
   regions.footer = renderFooter(data);
 

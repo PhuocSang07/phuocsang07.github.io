@@ -8,9 +8,10 @@
  * Rules:
  * - Plain-text fields are HTML-escaped. Fields ending in `Html` are inserted
  *   as-is, so keep them to simple inline markup (<a>, <em>, <strong>).
- * - Dates use "YYYY-MM". Omit `end` for an ongoing role.
+ * - Dates use "YYYY-MM" (or "YYYY" when the month is unknown). Omit `end` for
+ *   an ongoing role.
  * - Empty strings / empty arrays are skipped: a section with no entries is not
- *   rendered and its nav link disappears. Never put placeholder text here.
+ *   rendered. Never put placeholder text here.
  */
 
 module.exports = {
@@ -18,17 +19,18 @@ module.exports = {
     name: 'Tran Phuoc Sang',
     nameNative: 'Trần Phước Sang',
     headline: 'AI Agent Developer · LLM Researcher',
-    // Shown in the sidebar with an icon. Organisation names only; the role is in `headline`.
-    // kind: 'work' (briefcase icon) or 'lab' (flask icon).
+    // Shown in the sidebar with an icon. Keep these short; the role is in `headline`.
+    // kind: 'work' (briefcase), 'study' (graduation cap) or 'lab' (flask).
     affiliations: [
       { kind: 'work', label: 'CodePresso', url: '' },
-      { kind: 'lab', label: 'NLP & KD Lab, Ton Duc Thang University', url: '' },
+      { kind: 'study', label: 'M.Sc. in Computer Science, Ton Duc Thang University', url: 'https://www.tdtu.edu.vn/' },
     ],
     location: 'Ho Chi Minh City, Vietnam',
     initials: 'PS', // shown in the avatar block until `photo` is set
-    // TODO(owner): rewrite the bio in your own words.
     bioHtml: [
-      '<p>My research focuses on large language models: retrieval-augmented generation for legal documents, domain-specific fine-tuning, and synthetic data for low-resource tasks. At CodePresso I build LLM-based agents for automatic assessment content generation, code scoring, and code-interview analysis.</p>',
+      '<p>I am an AI engineer and researcher working on large language models. I build LLM-based agents at <strong>CodePresso</strong> and am pursuing an <strong>M.Sc. in Computer Science</strong> at Ton Duc Thang University.</p>',
+      '<p>My research focuses on adapting LLMs to specialised, low-resource settings: retrieval-augmented generation over legal documents, parameter-efficient fine-tuning for domain-specific question answering, and persona-driven synthetic data for imbalanced tasks such as depression screening (SOICT 2025). In industry, I work on agents for assessment content generation, automated code scoring and code-interview analysis, and on lowering serving cost with open-source models.</p>',
+      '<p>I also coach Ton Duc Thang University&rsquo;s teams for the Vietnam Student AI Olympiad.</p>',
     ],
     interests: [
       'Large Language Models',
@@ -38,7 +40,7 @@ module.exports = {
       'AI Agents',
     ],
     stack: ['Python', 'PyTorch', 'Hugging Face', 'LangChain', 'LoRA / PEFT', 'Qdrant', 'PostgreSQL', 'Docker', 'Streamlit'],
-    languages: 'Vietnamese (native) · English, Aptis B2 (L: C1, S: B1, R: B2, W: B2)',
+    languages: 'Vietnamese (native) · English (B2)',
     // TODO(owner): square portrait >= 400px, e.g. 'assets/images/profile.jpg'. Empty = no photo.
     photo: '',
     email: 'transhack09@gmail.com',
@@ -53,35 +55,27 @@ module.exports = {
     seo: {
       title: 'Tran Phuoc Sang — AI Agent Developer & LLM Researcher',
       description:
-        'Tran Phuoc Sang: AI Agent Developer at CodePresso and LLM researcher at NLP & KD Lab, Ton Duc Thang University. Publications, projects and experience.',
+        'Tran Phuoc Sang: AI Agent Developer at CodePresso and M.Sc. student in Computer Science at Ton Duc Thang University, researching large language models.',
       url: 'https://phuocsang07.github.io/',
       ogImage: '', // TODO(owner): 1200x630 image, e.g. 'assets/images/og.png'
     },
   },
 
-  // Newest first. Shows 5, the rest go under "Older news".
-  news: [
-    {
-      date: '2025-12',
-      textHtml: 'Our team <em>TDTU_Les Secrets Haches</em> won <strong>2nd Prize</strong> at the National Finals of the Vietnam Student AI Olympics 2025.',
-    },
-    // TODO(owner): add the SOICT 2025 acceptance and other dated news here.
-    { date: '2025-06', textHtml: 'Joined <strong>CodePresso</strong> as an AI Agent Developer.' },
-    { date: '2025-01', textHtml: 'Started as a Research Assistant at the NLP &amp; KD Lab, Ton Duc Thang University.' },
-  ],
+  // Newest first ({ date: 'YYYY-MM', textHtml }). Currently hidden: an empty list is not rendered.
+  news: [],
 
   publications: [
     {
       title: 'Addressing Data Scarcity and Imbalance in Depression Screening with Persona-Driven Synthetic Data',
       authors: [{ name: 'Luyen Vo' }, { name: 'Phuoc-Sang Tran', me: true }, { name: 'Anh-Cuong Le' }],
       venueShort: 'SOICT 2025',
-      venue: 'International Symposium on Information and Communication Technology (SOICT)',
+      venue: 'Springer CCIS · 14th International Symposium on Information and Communication Technology (SOICT), Nha Trang, Vietnam',
       year: 2025,
       note: '',
-      // TODO(owner): fill pdf / arxiv / code / slides / url when available.
-      links: { pdf: '', arxiv: '', code: '', slides: '', url: '' },
-      abstract: '', // TODO(owner)
-      bibtex: '', // TODO(owner)
+      links: { url: 'https://link.springer.com/chapter/10.1007/978-981-92-2584-2_47', pdf: '', arxiv: '', code: '', slides: '' },
+      doi: '10.1007/978-981-92-2584-2_47',
+      abstract: '', // TODO(owner): paste the abstract from the Springer page
+      bibtex: '', // TODO(owner): paste "Cite this paper" BibTeX from the Springer page
     },
   ],
 
@@ -128,15 +122,28 @@ module.exports = {
       stack: ['Python', 'PyTorch', 'LangChain', 'Hugging Face', 'AI Agents'],
     },
     {
+      role: 'Team Coach, Vietnam Student AI Olympiad 2026',
+      org: 'Ton Duc Thang University',
+      orgUrl: 'https://www.tdtu.edu.vn/',
+      location: 'Ho Chi Minh City, Vietnam',
+      start: '2026-10',
+      bullets: [
+        'Coach Ton Duc Thang University teams for the Vietnam Student AI Olympiad 2026 (OlpAI’26).',
+        'Team TDTU_A1 won 2nd Prize in the Southern regional round, placing 9th in the region and 14th nationwide.',
+      ],
+      links: { results: 'https://www.olp.vn/olympic-ai-sinh-vi%C3%AAn/k%E1%BA%BFt-qu%E1%BA%A3' },
+    },
+    {
       role: 'Research Assistant',
       org: 'Natural Language Processing & Knowledge Discovery Lab, Ton Duc Thang University',
       orgUrl: '',
       location: 'Ho Chi Minh City, Vietnam',
       start: '2025-01',
+      end: '2026-01',
       bullets: [
-        'Research advanced RAG techniques for legal document analysis.',
-        'Fine-tune large language models for domain-specific question answering.',
-        'Develop and maintain data-processing pipelines for NLP tasks.',
+        'Researched advanced RAG techniques for legal document analysis.',
+        'Fine-tuned large language models for domain-specific question answering.',
+        'Built and maintained data-processing pipelines for NLP tasks.',
       ],
       stack: ['Python', 'PyTorch', 'LangChain', 'RAG', 'LoRA', 'Hugging Face'],
     },
@@ -144,11 +151,18 @@ module.exports = {
 
   education: [
     {
+      degree: 'M.Sc. in Computer Science',
+      school: 'Ton Duc Thang University',
+      schoolUrl: 'https://www.tdtu.edu.vn/',
+      start: '2025',
+      notes: [],
+    },
+    {
       degree: 'B.Sc. in Computer Science', // TODO(owner): confirm degree name
       school: 'Ton Duc Thang University',
       schoolUrl: 'https://www.tdtu.edu.vn/',
-      start: '', // TODO(owner): 'YYYY-MM'
-      end: '', // TODO(owner): 'YYYY-MM' or leave empty if ongoing
+      start: '', // TODO(owner): 'YYYY'
+      end: '', // TODO(owner): 'YYYY'
       notes: ['GPA: 8.1 / 10'],
     },
   ],
@@ -156,18 +170,18 @@ module.exports = {
   awards: [
     {
       year: 2025,
-      title: '2nd Prize — Vietnam Student AI Olympics 2025 (National Finals)',
+      title: '2nd Prize — Vietnam Student AI Olympiad 2025, National Finals',
       description: 'Team TDTU_Les Secrets Haches, Ton Duc Thang University.',
       images: [
         {
           src: 'assets/images/awards/olpai-2025-team.jpg',
-          alt: 'The TDTU team at the Vietnam Student AI Olympics 2025 finals, HUTECH',
+          alt: 'The TDTU team at the Vietnam Student AI Olympiad 2025 finals, HUTECH',
           width: 1200,
           height: 800,
         },
         {
           src: 'assets/images/awards/olpai-2025-certificate.jpg',
-          alt: '2nd Prize certificate, Vietnam Student AI Olympics 2025',
+          alt: '2nd Prize certificate, Vietnam Student AI Olympiad 2025',
           width: 1200,
           height: 917,
         },

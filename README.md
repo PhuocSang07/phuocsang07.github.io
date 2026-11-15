@@ -6,7 +6,7 @@ Personal academic portfolio: LLM research and AI agent engineering. Live at http
 
 ## 🌟 Features
 
-- **Academic single-page layout**: About, News, Publications, Projects, Experience, Education, Awards
+- **Academic single-page layout**: About, Publications, Projects, Experience, Education, Awards
 - **Data-driven**: all content lives in `content/site-data.js`; `node build-site.js` renders it into static HTML (plus SEO meta and JSON-LD)
 - **Dark/Light Mode**: theme toggle, remembered in `localStorage['theme']`, defaults to the OS setting
 - **No framework, no JS dependency for content**: plain HTML/CSS and a small enhancement script; prints cleanly as a CV
