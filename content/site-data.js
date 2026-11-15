@@ -29,10 +29,10 @@ module.exports = {
     initials: 'PS', // monogram in the top-left corner and favicon
     bioHtml: [
       '<p>I am an AI engineer and researcher working on large language models and the agents built on them. I design agent systems at <strong>CodePresso</strong> and am pursuing an <strong>M.Sc. in Computer Science</strong> at Ton Duc Thang University.</p>',
-      '<p>My research focuses on <strong>LLM distillation</strong>, <strong>chain-of-thought reasoning</strong> and <strong>LLM-based agents</strong>. Earlier, I worked on retrieval-augmented generation for Vietnamese legal documents, parameter-efficient fine-tuning for domain-specific question answering, and persona-driven synthetic data for depression screening (SOICT 2025).</p>',
+      '<p>My research focuses on <strong>knowledge distillation for LLMs</strong>, <strong>reasoning optimisation for small language models</strong>, <strong>foundation models</strong> and <strong>transfer learning</strong>. Earlier, I worked on retrieval-augmented generation for Vietnamese legal documents, parameter-efficient fine-tuning for domain-specific question answering, and persona-driven synthetic data for depression screening (SOICT 2025).</p>',
       '<p>At CodePresso, I build AI agents that automate workflows in education and take them from prototype to production, with a close eye on performance and operating cost. I also coach Ton Duc Thang University&rsquo;s teams for the Vietnam Student AI Olympiad.</p>',
     ],
-    interests: ['LLM Distillation', 'Chain-of-Thought Reasoning', 'AI Agents', 'Large Language Models'],
+    interests: ['LLM Distillation', 'Reasoning in Small Language Models', 'Foundation Models', 'Transfer Learning'],
     stack: ['Python', 'PyTorch', 'Hugging Face', 'LangChain', 'AWS (S3, Lambda, ECS)', 'Docker', 'PostgreSQL', 'Qdrant', 'LoRA / PEFT'],
     languages: 'Vietnamese (native) · English (B2)',
     // TODO(owner): square portrait >= 400px, e.g. 'assets/images/profile.jpg'. Empty = no photo.
@@ -49,7 +49,7 @@ module.exports = {
     seo: {
       title: 'Tran Phuoc Sang — AI Agent Developer & LLM Researcher',
       description:
-        'Tran Phuoc Sang: AI Agent Developer at CodePresso and M.Sc. student in Computer Science at Ton Duc Thang University, researching LLM distillation, chain-of-thought reasoning and AI agents.',
+        'Tran Phuoc Sang: AI Agent Developer at CodePresso and M.Sc. student in Computer Science at Ton Duc Thang University, researching LLM distillation, reasoning in small language models, foundation models and transfer learning.',
       url: 'https://phuocsang07.github.io/',
       ogImage: '', // TODO(owner): 1200x630 image, e.g. 'assets/images/og.png'
     },
